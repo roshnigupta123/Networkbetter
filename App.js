@@ -7,6 +7,15 @@ import Home from './src/screens/home/Home';
 import Splash from './src/screens/splash/Splash';
 import Contact from './src/screens/contacts/Contact';
 import Sidebarmenu from "./src/screens/filter/Sidebarmenu";
+import { Provider } from "react-redux";
+import reducers from './src/reducers/index';
+import {createStore, applyMiddleware} from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
+
+let store = createStore(reducers, composedEnhancer);
 
 const AppNavigator = createStackNavigator({
  
@@ -40,4 +49,12 @@ const Auth = createSwitchNavigator({
     Dashboard: { screen: dashboardStack }
 })
 
-export default createAppContainer(Auth);
+const AppContainer = createAppContainer(Auth);
+
+const App = () => {
+  return <Provider store={store}>
+           <AppContainer />
+       </Provider>
+};
+
+export default App;

@@ -42,14 +42,13 @@ export default styles = StyleSheet.create({
         borderRadius:15
     },
     card: {
-        flex: 1,
+         flex: 1,
         borderRadius: 20,
         borderWidth: 2,
         borderColor: '#E8E8E8',
         justifyContent: 'center',
         backgroundColor: '#fff',
       marginTop:'40%',
-    
       },
       blackCard:{
           backgroundColor:'#3D3D3D',
@@ -95,9 +94,38 @@ export default styles = StyleSheet.create({
       plus:{
           width:15,
           height:15,
-          color:'#ccc'
+        //   color:'#ccc'
       },
       row:{
           flexDirection:'row',
+      },
+      button: {
+ 
+        width: '90%',
+        height: 40,
+        padding: 10,
+        backgroundColor: '#4CAF50',
+        borderRadius: 8,
+        marginTop: 10
+      },
+     
+      buttonText: {
+        color: '#fff',
+        textAlign: 'center',
+      },
+      textInputStyle:{
+          borderColor:'#ccc',
+          borderWidth:0.5,
+          height:45,
+          borderRadius:5,
+          padding:15
+      },
+      itemsContainerStyle:{
+        borderColor:'#ccc',
+        borderWidth:0.5,
+        borderTopLeftRadius:5,
+        borderTopRightRadius:5,
+        maxHeight:200,
+        marginTop:5
       }
 })

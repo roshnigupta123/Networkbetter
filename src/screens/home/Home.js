@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-deck-swiper'
-import { Button, TouchableOpacity, Text, View, ImageBackground, StatusBar, Image } from 'react-native'
+import { Button, TouchableOpacity, Text, View, ImageBackground, StatusBar, Image, TextInput, FlatList } from 'react-native'
 import styles from "./Styles";
+import {  connect } from "react-redux";
+import Dialog, { DialogContent } from 'react-native-popup-dialog';
+import SearchableDropdown from 'react-native-searchable-dropdown';
+
+import * as actionCreators from '../../actions/index';
 
 const image = require('../images/Group2.png');
 
@@ -12,15 +17,24 @@ function* range(start, end) {
   }
 }
 
-export default class Exemple extends Component {
+ class Home extends Component {
   constructor(props) {
     super(props)
+    this.array = [],
+ 
     this.state = {
       cards: [...range(1, 50)],
       swipedAllCards: false,
       swipeDirection: '',
-      cardIndex: 0
+      cardIndex: 0,
+      defaultAnimationDialog: false,
+      arrayHolder: [],
+      textInput_Holder: ''
     }
+  }
+
+  addCategory(){
+    this.setState({defaultAnimationDialog:true})
   }
 
   renderCard = (card, index) => {
@@ -35,7 +49,7 @@ export default class Exemple extends Component {
             </View>
 
             <View>
-            <TouchableOpacity onPress={() =>alert('hii')} style={styles.plusicon}>
+            <TouchableOpacity onPress={() =>{this.addCategory()}} style={styles.plusicon}>
                   <Image source={require('../images/plus.png')} style={styles.plus} />
                 </TouchableOpacity>
             </View>
@@ -65,7 +79,7 @@ export default class Exemple extends Component {
             </View>
 
             <View style={styles.row}>
-            <TouchableOpacity onPress={() =>alert('hii')} >
+               <TouchableOpacity onPress={() =>alert('hii')} >
                   <Image source={require('../images/call.png')} style={[styles.plus,{marginRight:15}]} />
                 </TouchableOpacity>
                <TouchableOpacity onPress={() =>alert('hii')} >
@@ -77,7 +91,7 @@ export default class Exemple extends Component {
             </View>
         </View>
       </View>
-
+     
     )
   };
 
@@ -95,8 +109,21 @@ export default class Exemple extends Component {
     this.swiper.swipeLeft()
   };
 
+  joinData = () => {
+    this.array.push({title : this.state.textInput_Holder});
+    this.setState({ arrayHolder: [...this.array] })
+    console.log("arrr",this.state.arrayHolder)
+  }
+
+  componentDidMount() {
+    console.log('contact',this.props.Contact())
+    console.log('arrayHolder',this.state.arrayHolder)
+    this.setState({ arrayHolder: [...this.array] })
+  }
+
   render() {
     return (
+     
       <View style={styles.container}>
 
         <Swiper
@@ -211,18 +238,110 @@ export default class Exemple extends Component {
                 <Text style={styles.NWtxt}>NETWORK <Text style={styles.bettertxt}>BETTER</Text></Text>
               </View>
             </View>
-
-            {/* <Button onPress={() => this.swiper.swipeBack()} title='Swipe Back' /> */}
-
-
           </ImageBackground>
+      
         </Swiper>
         <View style={styles.blackCard}>
           <Text style={styles.crdtext}>
             “we value your privacy, this is an offline application. We dont store anything on our servers“</Text>
+            <Button onPress={() =>{this.props.Contact()}} title='Swipe Back' />
         </View>
+        <View>
+          <Dialog
+          onDismiss={() => {
+           this.setState({defaultAnimationDialog:false})
+          }}
+          width={0.9}
+          visible={this.state.defaultAnimationDialog}
+          rounded
+          actionsBordered
+          // dialogTitle={
+          //   <DialogTitle
+          //     title="ASSIGN CATEGORY"
+          //     style={{
+          //       backgroundColor: '#F7F7F8',
+          //     }}
+          //     hasTitleBar={false}
+          //     align="left"
+          //   />
+          // }
+          >
+            <DialogContent style={styles.content}>
+             <View style={styles.header}>
+                  <Text style={styles.title}>ASSIGN CATEGORY</Text>
+           
+             <TouchableOpacity onPress={() => {this.setState({defaultAnimationDialog: false})}}>
+                  <Image source={require('../images/plus.png')} style={styles.plus} />
+                </TouchableOpacity>
+                </View>
+         <SearchableDropdown
+          onTextChange={(text) => console.log(text)}
+          // onItemSelect={(item) => alert(JSON.stringify(item))}
+          onItemSelect={item => { this.setState({name: item.name})
+            console.log(item.name)}}
+          containerStyle={{marginTop:20}}
+          textInputStyle={styles.textInputStyle}
+          itemStyle={{padding: 10}}
+          itemTextStyle={{color: '#222'}}
+          itemsContainerStyle={styles.itemsContainerStyle}
+          items={items}
+          placeholder="placeholder"
+          resPtValue={false}
+          underlineColorAndroid="transparent"
+        />
+              {/* <TextInput  
+                placeholder="Enter Value Here"
+                onChangeText={data => this.setState({ textInput_Holder: data })}
+                style={styles.textInputStyle}
+                underlineColorAndroid='transparent'
+              /> */}
+
+              {/* <FlatList
+                data={this.state.arrayHolder}
+                width='100%'
+                extraData={this.state.arrayHolder}
+                keyExtractor={(index) => index.toString()}
+                ItemSeparatorComponent={this.FlatListItemSeparator}
+                renderItem={({ item }) =>
+                  <Text style={styles.item} > {item.title} </Text>}
+              /> */}
+              {/* <TouchableOpacity onPress={this.joinData} activeOpacity={0.7} style={styles.button} >
+               <Text style={styles.buttonText}> Add Values To FlatList </Text>
+                </TouchableOpacity> */}
+
+              <Button onPress={() => { this.setState({ defaultAnimationDialog: false }) }} title='Back' />
+            </DialogContent>
+          </Dialog>
+        
+        </View>
+        
       </View>
+    
     )
   }
 }
 
+
+
+const mapStateToProps=(state)=>{
+  return state
+}
+
+const connectComponent = connect (mapStateToProps, actionCreators);
+
+ export default connectComponent(Home);
+
+
+ const items = [
+  // name key is must. It is to show the text in front
+  {id: 1, name: 'angellist'},
+  {id: 2, name: 'codepen'},
+  {id: 3, name: 'envelope'},
+  {id: 4, name: 'etsy'},
+  {id: 5, name: 'facebook'},
+  {id: 6, name: 'foursquare'},
+  {id: 7, name: 'github-alt'},
+  {id: 8, name: 'github'},
+  {id: 9, name: 'gitlab'},
+  {id: 10, name: 'instagram'},
+];
