@@ -23,7 +23,7 @@ export const contactListFailure = error => {
     }
 }
 
-export const contactListRandom = (contacts) => {
+export const contactListupdate = (contacts) => {
     console.log("action update:" )
     return {
         type: CONTACT_LIST_UPDATE,
@@ -31,7 +31,7 @@ export const contactListRandom = (contacts) => {
     }
 }
 
-export const contactListupdateNewAdd = (contacts) => {
+export const contactListRandom = (contacts) => {
     console.log("action update:" )
     return {
         type: CONTACT_LIST_AddNEW,
