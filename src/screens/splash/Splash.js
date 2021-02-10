@@ -4,13 +4,18 @@ import styles from "./Styles";
 
 const image = require('../images/Group1.png');
 
-export default class Splash extends Component {
+class Splash extends Component {
+
+   componentDidMount(){
+    this.props.contactPermission();
+    this.props.permission_calls();
+    console.log('spalsh', this.props.permission_calls())
+   } 
+
     render() {
         return (
             <View style={styles.container}>
                 <StatusBar hidden />
-
-
                 <ImageBackground source={image} style={styles.imagebg} >
                 <View style={styles.content}>
                     <View style={styles.textcontainer}>
@@ -38,3 +43,5 @@ export default class Splash extends Component {
         )
     }
 }
+
+export default Splash;

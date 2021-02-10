@@ -3,30 +3,21 @@ import {Dimensions} from 'react-native';
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createDrawerNavigator } from "react-navigation-drawer";
-import Home from './src/screens/home/Home';
-import Splash from './src/screens/splash/Splash';
-import Contact from './src/screens/contacts/Contact';
-import Sidebarmenu from "./src/screens/filter/Sidebarmenu";
-import { Provider } from "react-redux";
-import reducers from './src/reducers/index';
-import {createStore, applyMiddleware} from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import { composeWithDevTools } from 'redux-devtools-extension'
-
-const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
-
-let store = createStore(reducers, composedEnhancer);
+import Homecontainer from './src/screens/home/Homecontainer';
+import Splashcontainer from './src/screens/splash/Splashcontainer';
+import Contactcontainer from './src/screens/contacts/Contactcontainer';
+import Sidebarcontainer from "./src/screens/filter/Sidebarcontainer.js";
 
 const AppNavigator = createStackNavigator({
  
     Home: {
-      screen: Home,
+      screen: Homecontainer,
       navigationOptions: {
         headerShown: false,
       },
     },
     Contact: {
-        screen: Contact,
+        screen: Contactcontainer,
         navigationOptions: {
           headerShown: false,
         },
@@ -38,23 +29,22 @@ const dashboardStack = createDrawerNavigator({
   Dashboard: { screen: AppNavigator },
 
 }, {
-  contentComponent: Sidebarmenu,
+  contentComponent: Sidebarcontainer,
   drawerWidth: Dimensions.get('window').width - 100,
   drawerPosition: 'right'
 },
 )
 
 const Auth = createSwitchNavigator({
-    Splash: { screen:Splash },
+    Splash: { screen:Splashcontainer },
     Dashboard: { screen: dashboardStack }
 })
 
 const AppContainer = createAppContainer(Auth);
 
 const App = () => {
-  return <Provider store={store}>
-           <AppContainer />
-       </Provider>
+  return <AppContainer />
+       
 };
 
 export default App;

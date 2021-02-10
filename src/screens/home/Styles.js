@@ -49,6 +49,7 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#fff',
       marginTop:'40%',
+    //   overflow:'scroll'
       },
       blackCard:{
           backgroundColor:'#3D3D3D',
@@ -101,24 +102,38 @@ export default styles = StyleSheet.create({
       },
       button: {
  
-        width: '90%',
+      //  width: '90%',
         height: 40,
         padding: 10,
         backgroundColor: '#4CAF50',
-        borderRadius: 8,
-        marginTop: 10
+        justifyContent:'center',
+        alignItems:'center',
+        borderBottomLeftRadius:5,
+        borderBottomRightRadius:5
       },
-     
+      assignbutton:{
+        height: 40,
+        padding: 10,
+        backgroundColor: '#536CBC',
+        justifyContent:'center',
+        alignItems:'center',
+        width:100,
+        borderRadius:5,
+        marginTop:20
+      },
       buttonText: {
         color: '#fff',
         textAlign: 'center',
+        fontSize:fontsize.label,
+        fontFamily: fontfamily.regular
       },
       textInputStyle:{
           borderColor:'#ccc',
           borderWidth:0.5,
           height:45,
           borderRadius:5,
-          padding:15
+          padding:15,
+         
       },
       itemsContainerStyle:{
         borderColor:'#ccc',
@@ -127,5 +142,13 @@ export default styles = StyleSheet.create({
         borderTopRightRadius:5,
         maxHeight:200,
         marginTop:5
-      }
+      },
+      categorybtn:{
+        backgroundColor:'#E5E5E5',
+        paddingHorizontal:15,
+        paddingVertical:2,
+        alignItems:'center',
+        justifyContent:'center',
+        borderRadius:45
+    }
 })
