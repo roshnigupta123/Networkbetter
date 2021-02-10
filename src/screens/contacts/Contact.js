@@ -52,6 +52,7 @@ export default class Contact extends Component {
     if (this.props.contacts.ContactList_reducer.loading) {
       <ActivityIndicator size="large" />
     }
+   
     return (
       <View style={styles.container}>
          <StatusBar backgroundColor="transparent" translucent barStyle="light-content" />

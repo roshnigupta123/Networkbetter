@@ -1,4 +1,5 @@
-import { CONTACT_LIST_REQUEST, CONTACT_LIST_SUCCESS, CONTACT_LIST_FAILURE, CONTACT_LIST_UPDATE } from "../Constant";
+import { CONTACT_LIST_REQUEST, CONTACT_LIST_SUCCESS, CONTACT_LIST_FAILURE, CONTACT_LIST_UPDATE,
+    CONTACT_LIST_AddNEW } from "../Constant";
 import { Platform, PermissionsAndroid } from 'react-native';
 import Contacts from "react-native-contacts";
 
@@ -22,10 +23,18 @@ export const contactListFailure = error => {
     }
 }
 
-export const contactListupdate = (contacts) => {
+export const contactListRandom = (contacts) => {
     console.log("action update:" )
     return {
         type: CONTACT_LIST_UPDATE,
+        payload: contacts
+    }
+}
+
+export const contactListupdateNewAdd = (contacts) => {
+    console.log("action update:" )
+    return {
+        type: CONTACT_LIST_AddNEW,
         payload: contacts
     }
 }
@@ -55,12 +64,7 @@ export const loadContacts = () => {
                     a.givenName.toLowerCase() > b.givenName.toLowerCase(),
             );
             contacts.map(i=>{i["category"] = ''});
-            var finalArr, i ;
-            for (finalArr = contacts, i = 0; i < contacts.length; i++) {
-             finalArr[i] = contacts[Math.floor(Math.random() * contacts.length)]
-             }
             dispatch(contactListSuccess(contacts))
-             console.log('on success contact', finalArr)
         })
         .catch(error => {
             dispatch(contactListFailure(error))
@@ -69,3 +73,6 @@ export const loadContacts = () => {
     Contacts.checkPermission();
     }
 }
+
+
+

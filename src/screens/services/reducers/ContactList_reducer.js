@@ -1,4 +1,5 @@
-import { CONTACT_LIST_REQUEST, CONTACT_LIST_SUCCESS, CONTACT_LIST_FAILURE, CONTACT_LIST_UPDATE } from "../Constant";
+import { CONTACT_LIST_REQUEST, CONTACT_LIST_SUCCESS, CONTACT_LIST_FAILURE, 
+  CONTACT_LIST_UPDATE,CONTACT_LIST_AddNEW } from "../Constant";
 
 const initialState = {
   loading: false,
@@ -27,12 +28,18 @@ const ContactList_reducer = (state = initialState, action) => {
         error: action.payload
       }
 
+      case CONTACT_LIST_AddNEW:
+        // console.log('newadd',action.payload)
+      return {
+        ...state, contacts: action.payload
+      }
+
    case CONTACT_LIST_UPDATE: {
-      console.log('reducer', action)
+    //  console.log('reducer', action)
       const index = state.contacts.findIndex(todo => todo.recordID !== action.payload); 
       const newArray = [...state.contacts];
       newArray[index].category = action.payload
-      // console.log('newArray', newArray,'newArray')
+   //  console.log('newArray', newArray,'newArray')
       return {
         ...state,
         contacts: newArray,

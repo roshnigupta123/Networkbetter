@@ -234,10 +234,10 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    // console.log('home screen',this.props)
+    //  console.log('home screen',this.props)
      this.generateRandomContact();
      this.ChangeColorFunction();
-    //  this.props.loadContacts();
+       
   }
 
   UNSAFE_componentWillMount() {
@@ -252,14 +252,11 @@ class Home extends Component {
     }
     this.setState({ cards: finalArr })
     //console.log('finalArr',finalArr[0])
+     this.props.randomContact(finalArr)
   }
 
   render() {
-    let contactList = this.props.contacts.ContactList_reducer.contacts;
-    var finalArr, i ;
-    for (finalArr = [contactList], i = 0; i < contactList.length; i++) {
-      finalArr[i] = contactList[Math.floor(Math.random() * contactList.length)]
-    }
+  
     return (
 
       <View style={[styles.container, { backgroundColor: this.state.ColorHolder }]}>
@@ -336,11 +333,11 @@ class Home extends Component {
                 onItemSelect={item => {
                   let data = this.props.contacts.ContactList_reducer.contacts
                   data[this.state.myCardIndex].category = item.name
-                  console.log('cards',data[0])
+                  //console.log('cards',data[0])
                   this.props.contacts.ContactList_reducer.contacts = data
                   this.setState({ selectedItems: item,cards:data });
                   this.props.update(item.name)
-               // console.log('update', this.props.contacts.ContactList_reducer.contacts)
+              //  console.log('update', this.props.contacts.ContactList_reducer.contacts)
                 }}
                 selectedItems={this.state.selectedItems}
                 containerStyle={{ marginTop: 20 }}
