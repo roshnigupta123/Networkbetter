@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Swiper from 'react-native-deck-swiper'
-// import Swiper from 'react-native-realistic-deck-swiper'
+// import Swiper from 'react-native-deck-swiper'
+import Swiper from 'react-native-realistic-deck-swiper'
 import { Button, TouchableOpacity, Text, View, ImageBackground, StatusBar, Image, Linking, ScrollView, TextInput } from 'react-native'
 import styles from "./Styles";
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
@@ -31,12 +31,12 @@ class Home extends Component {
         defaultAnimationDialog2: false,
         textInput_Holder: '',
         ColorHolder: '',
-        selectedItems:[],
-        diffInDays:'',
-        category:'',
-        myCardIndex:'',
-        number:[],
-        recordID:''
+        selectedItems: [],
+        diffInDays: '',
+        category: '',
+        myCardIndex: '',
+        number: [],
+        recordID: ''
       }
   }
 
@@ -44,20 +44,22 @@ class Home extends Component {
     this.setState({ defaultAnimationDialog: false, defaultAnimationDialog2: true })
   }
 
-  onPress_plus(category,index,recordID) {
-    console.log('category=>',category,'index=>',index,'recordID',recordID)
-    this.setState({ defaultAnimationDialog: true,
-      category:category, myCardIndex:index,recordID:recordID })
+  onPress_plus(category, index, recordID) {
+    console.log('category=>', category, 'index=>', index, 'recordID', recordID)
+    this.setState({
+      defaultAnimationDialog: true,
+      category: category, myCardIndex: index, recordID: recordID
+    })
   }
 
-  onPressAssign(){
+  onPressAssign() {
     this.setState({ defaultAnimationDialog: false })
     let data = this.props.contacts.ContactList_reducer.contacts
     this.props.update(this.state.selectedItems.name)
-     let index = data.findIndex(el => el.recordID === this.state.recordID);
-     data[index] = {...data[index], category: this.state.selectedItems.name};
-     this.props.contacts.ContactList_reducer.contacts = data
-  } 
+    let index = data.findIndex(el => el.recordID === this.state.recordID);
+    data[index] = { ...data[index], category: this.state.selectedItems.name };
+    this.props.contacts.ContactList_reducer.contacts = data
+  }
 
   triggerCall = (item) => {
     const args = {
@@ -103,46 +105,76 @@ class Home extends Component {
     //console.log('ColorHolder',ColorCode)
   }
 
+  removeDublicateNumber = (phoneNumbers) => {
+    let number = phoneNumbers &&
+      phoneNumbers.length > 0 &&
+      phoneNumbers.map(
+        (numberData, numberIndex) => {
+          return (numberData.number)
+        }
+      )
+    console.log('number: ', number,)
+
+ //  let number = ["070240 91890", "070240 91890", "90986 38200", "07024091890"]
+
+ if(number!=undefined){
+    var i = 0
+    var str = number;
+    var strLength = str.length;
+    for (i; i < strLength; i++) {
+      str = str.toString().replace("-", " ").split(",")
+      str = str.toString().replace(/\s+/g, "").split(",")
+    }
+    let uni = str
+    if (uni != false) {
+      let u = uni.filter((v, i, a) => a.indexOf(v) === i)
+      this.setState({ number: u, value: u[0] });
+      console.log('unique', u);
+      this.setState({number: u})
+    } else {
+      console.log('empty number array')
+    }
+  }
+  }
 
   renderCard = (card, index) => {
+    if(card!=null){
     return (
 
-      <View style={[styles.card]}>
-       <ScrollView contentContainerStyle={{flex:1}}>
+      <View style={{ flex: 1 }}>
+        <ScrollView>
           <View style={styles.swipecrdsty}>
             <View>
               <Text style={styles.title}>{card.displayName}</Text>
-              {/* <Text style={styles.subtitle}>{this.callLogs_fun(card.phoneNumbers,card.displayName)} Last contact 2 week ago</Text>
-              <Text style={styles.title}>{ this.state.diffInDays} days ago</Text> */}
             </View>
             <View>
-             {card.category==""?(
-              <TouchableOpacity onPress={() => { this.onPress_plus(card.category,index,card.recordID) }} style={styles.plusicon}>
-                <Image source={require('../images/plus.png')} style={styles.plus} />
-              </TouchableOpacity>
-              ): <View style={styles.categorybtn}>
-              <Text style={styles.subtitle}>{card.category}</Text>
+              {card.category == "" ? (
+                <TouchableOpacity onPress={() => { this.onPress_plus(card.category, index, card.recordID) }} style={styles.plusicon}>
+                  <Image source={require('../images/plus.png')} style={styles.plus} />
+                </TouchableOpacity>
+              ) : <View style={styles.categorybtn}>
+                  <Text style={styles.subtitle}>{card.category}</Text>
                 </View>}
-               
-               <Text>{index}category {card.recordID}</Text>
+
+              {/* <Text>{index}category {card.recordID}</Text> */}
             </View>
           </View>
-          {/* {this.callLogs_fun(card.phoneNumbers,card.displayName)} */}
 
-           {this.state.number.length != 0 ? (
-                this.state.number.map((item,index)=>{
-                  return <Text>{item}</Text>
-                })
-           ): null }
+         {/* {this.removeDublicateNumber(card.phoneNumbers)} */}
+
+        
+          {this.state.number.map((item,index)=>{
+           return <Text>{item}</Text>
+         })}
 
           {card.phoneNumbers &&
             card.phoneNumbers.length > 0 &&
-            card.phoneNumbers.map (
+            card.phoneNumbers.slice(0,2).map(
               (numberData, numberIndex) => {
                 return <View style={[styles.swipecrdsty, { backgroundColor: '#F9F9F9' }]}>
-                      <View>
-                        <Text style={styles.title}>{numberData.number.replace(/[-\s]/g,"")}</Text>
-                      </View>
+                  <View>
+                    <Text style={styles.title}>{numberData.number.replace(/[-\s]/g, "")}</Text>
+                  </View>
 
                   <View style={styles.row}>
                     <TouchableOpacity onPress={() => this.triggerCall(numberData.number)} >
@@ -151,18 +183,17 @@ class Home extends Component {
                     <TouchableOpacity onPress={() => this.initiateWhatsApp(numberData.number)} >
                       <Image source={require('../images/whatsapp.png')} style={[styles.humbrgrmenu]} />
                     </TouchableOpacity>
-                    {/* <TouchableOpacity onPress={() =>alert('hii')} >
-                       <Image source={require('../images/telegram.png')} style={styles.humbrgrmenu} />
-                     </TouchableOpacity> */}
+                   
                   </View>
                 </View>
               }
             )
           }
-      </ScrollView>
+        </ScrollView>
       </View>
 
     )
+  }
   };
 
   onSwiped = (type) => {
@@ -180,7 +211,7 @@ class Home extends Component {
   };
 
   joinData = () => {
-    this.props.categoryList(this.state.textInput_Holder )
+    this.props.categoryList(this.state.textInput_Holder)
     this.setState({ assign_category: '', textInput_Holder: '' })
     // this.props.CategoryList_reducer.push({ name: this.state.textInput_Holder });
     console.log("arrr item", this.props.contacts.CategoryList_reducer)
@@ -197,32 +228,46 @@ class Home extends Component {
     for (var finalArr = [contactList], i = 0; i < contactList.length; i++) {
       finalArr[i] = contactList[Math.floor(Math.random() * contactList.length)]
     }
-   // this.setState({ cards: finalArr })
+    // this.setState({ cards: finalArr })
     //console.log('finalArr',finalArr[0])
-     this.props.randomContact(finalArr)
+    this.props.randomContact(finalArr)
   }
 
   render() {
     return (
 
       <View style={styles.container}>
-    {/* <Swiper
-          cardsData={this.props.contacts.ContactList_reducer.contacts}
-          renderCard={this.renderCard}
-          containerStyle={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          style={{
-            margin: 20,
-            backgroundColor: 'white',
-            borderColor: 'black',
-            borderWidth: 1,
-            borderRadius: 5,
-          }}
-        /> */}
-         <Swiper
+        <StatusBar backgroundColor="transparent" translucent barStyle="dark-content" />
+        <ImageBackground source={image} style={{ flex: 1 }}  >
+          <View style={styles.content}>
+            <View style={styles.header}>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('Contact')}
+              >
+                <Image source={require('../images/menu.png')} style={styles.humbrgrmenu} />
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+                <Image source={require('../images/filter.png')} style={styles.humbrgrmenu} tintColor="#fff" />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.center}>
+              <Text style={styles.NWtxt}>NETWORK <Text style={styles.bettertxt}>BETTER</Text></Text>
+            </View>
+          </View>
+
+          <Swiper
+            cardsData={this.props.contacts.ContactList_reducer.contacts}
+            renderCard={this.renderCard}
+            containerStyle={{
+              flex: 1,
+              margin: 20
+            }}
+            style={styles.card}
+          />
+        </ImageBackground>
+        {/* <Swiper
           ref={swiper => {
             this.swiper = swiper
           }}
@@ -267,17 +312,15 @@ class Home extends Component {
             </View>
           </ImageBackground>
 
-        </Swiper>
-       
-      
-      
+        </Swiper> */}
+
         <View style={styles.blackCard}>
           <Text style={styles.crdtext}>
             “we value your privacy, this is an offline application. We dont store anything on our servers“</Text>
         </View>
-       
-         <View>
-         
+
+        <View>
+
           <Dialog
             onDismiss={() => {
               this.setState({ defaultAnimationDialog: false })
@@ -296,14 +339,14 @@ class Home extends Component {
               <SearchableDropdown
                 onTextChange={(text) => console.log(text)}
                 onItemSelect={item => {
-                this.setState({ selectedItems: item})
-                let data = this.props.contacts.ContactList_reducer.contacts
-                 this.props.update(item.name)
+                  this.setState({ selectedItems: item })
+                  let data = this.props.contacts.ContactList_reducer.contacts
+                  this.props.update(item.name)
                   let index = data.findIndex(el => el.recordID === this.state.recordID);
-                  data[index] = {...data[index], category: item.name};
+                  data[index] = { ...data[index], category: item.name };
                   this.props.contacts.ContactList_reducer.contacts = data
-              }}
-                selectedItems={this.state.selectedItems}  
+                }}
+                selectedItems={this.state.selectedItems}
                 containerStyle={{ marginTop: 20 }}
                 textInputStyle={styles.textInputStyle}
                 itemStyle={{ padding: 10 }}
@@ -315,20 +358,19 @@ class Home extends Component {
                 underlineColorAndroid="transparent"
               />
 
-                <TouchableOpacity onPress={() => { this.addCategory() }} style={styles.button}>
-                  <Text style={styles.buttonText}>Create a new category</Text>
-                </TouchableOpacity>
+              <TouchableOpacity onPress={() => { this.addCategory() }} style={styles.button}>
+                <Text style={styles.buttonText}>Create a new category</Text>
+              </TouchableOpacity>
 
-                   <View style={styles.center}>
-                <TouchableOpacity onPress={() => { 
-              this.setState({ defaultAnimationDialog: false })
+              <View style={styles.center}>
+                <TouchableOpacity onPress={() => {
+                  this.setState({ defaultAnimationDialog: false })
                 }} style={styles.assignbutton}>
                   <Text style={styles.buttonText}>Assign</Text>
                 </TouchableOpacity>
-                </View>
+              </View>
             </DialogContent>
           </Dialog>
-
 
           <Dialog
             onDismiss={() => {
@@ -339,7 +381,7 @@ class Home extends Component {
             rounded
             actionsBordered >
             <DialogContent style={styles.content}>
-              <View style={[styles.header,{ marginBottom:20}]}>
+              <View style={[styles.header, { marginBottom: 20 }]}>
                 <Text style={styles.title}>ADD CATEGORY</Text>
                 <TouchableOpacity onPress={() => { this.setState({ defaultAnimationDialog2: false }) }}>
                   <Image source={require('../images/cancel.png')} style={styles.plus} />
@@ -354,17 +396,17 @@ class Home extends Component {
                 value={this.state.textInput_Holder}
               />
 
-                    <View style={styles.center}>
+              <View style={styles.center}>
                 <TouchableOpacity onPress={() => { this.joinData() }} style={styles.assignbutton}>
                   <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
-                </View>
+              </View>
 
               <Text>{this.state.assign_category}</Text>
             </DialogContent>
           </Dialog>
 
-        </View>  
+        </View>
 
       </View>
 

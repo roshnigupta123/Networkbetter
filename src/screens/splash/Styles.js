@@ -9,6 +9,7 @@ export default styles = StyleSheet.create({
     },
     content: {
         padding: 20,
+        flex:1
     },
     imagebg: {
         width: width, 
@@ -16,7 +17,10 @@ export default styles = StyleSheet.create({
        resizeMode:'cover',
     },
     textcontainer:{
-         marginTop:'110%'
+        //  marginTop:'110%'
+        position:'absolute',
+        bottom:0,
+        padding: 20,
     },
     wlcmtxt:{
       fontSize: fontsize.label,
@@ -56,7 +60,8 @@ export default styles = StyleSheet.create({
     center:{
         justifyContent:'center',
         alignItems:'center',
-        
+        flex:1,
+        marginLeft:'45%'
     },
     arrow:{
         width: 15,

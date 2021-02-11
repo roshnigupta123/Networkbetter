@@ -42,14 +42,14 @@ export default styles = StyleSheet.create({
         borderRadius:15
     },
     card: {
-         flex: 1,
         borderRadius: 20,
         borderWidth: 2,
         borderColor: '#E8E8E8',
-        justifyContent: 'center',
         backgroundColor: '#fff',
-      marginTop:'40%',
-    //   overflow:'scroll'
+        width:"100%",
+      height:"70%",
+     // marginTop:'40%',
+       overflow:'scroll'
       },
       blackCard:{
           backgroundColor:'#3D3D3D',
