@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
 import styles from "./Styles";
+var _ = require('lodash');
 
 export default class Sidebarmenu extends Component {
 
@@ -8,14 +9,15 @@ export default class Sidebarmenu extends Component {
     super(props);
     this.state = {
       activebox: false,
-      data: []
+      data: [],
+      tempcategory:[]
     }
   }
-  
+
   componentDidMount() {
-    console.log('sidebar', this.props.category.CategoryList_reducer.name)
+    console.log('sidebar')
   }
-  
+
 
   box(index, status) {
     console.log('index', index)
@@ -24,6 +26,24 @@ export default class Sidebarmenu extends Component {
     data[index].status = true
     this.setState({ data })
     console.log('data', data)
+    this.filter_contactList();
+  }
+
+  filter_contactList() {
+    let mainCategory = this.props.category.CategoryList_reducer.name
+    var result = mainCategory.filter(obj => {
+      return obj.status == true
+    })
+
+    console.log('selected category result', result)
+    let tempcategory = []
+    for (let i = 0; result.length > i; i++) {
+      console.log('gfjvbn', result[i].name)
+      let cate = result[i].name
+      tempcategory.push(cate)
+    }
+    console.log('cate', tempcategory)
+    this.setState({tempcategory})
   }
 
   uncheckbox(index, status) {
@@ -33,6 +53,13 @@ export default class Sidebarmenu extends Component {
     data[index].status = false
     this.setState({ data })
     console.log('data', data)
+ 
+   this.props.contactPermission();
+  }
+
+  onPress_filter(){
+    console.log('tempcategory',this.state.tempcategory)
+    this.props.contactListfilter(this.state.tempcategory)
   }
 
   ItemView = ({ item, index }) => {
@@ -75,6 +102,12 @@ export default class Sidebarmenu extends Component {
               keyExtractor={(item, index) => index.toString()}
               numColumns={3}
             />
+          </View>
+
+          <View style={styles.center}>
+          <TouchableOpacity style={styles.filterbtn} onPress={()=> this.onPress_filter()} >
+                  <Text style={styles.buttonText}>Filter</Text>
+          </TouchableOpacity>
           </View>
         </View>
       </View>

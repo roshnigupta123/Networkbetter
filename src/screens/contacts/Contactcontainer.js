@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { contactPermission } from "../services/actions/ContactList_action";
+import { contactPermission ,contactListupdate} from "../services/actions/ContactList_action";
+import { categoryList } from "../services/actions/CategoryList_action";
 import Contact from './Contact';
 
 const mapStateToProps = state => ({
@@ -8,7 +9,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    contactPermission: data => dispatch(contactPermission(data))
+    contactPermission: data => dispatch(contactPermission(data)),
+    categoryList: data => dispatch(categoryList(data)),
+    update: (data)=>dispatch(contactListupdate(data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contact);

@@ -1,5 +1,5 @@
 import { CONTACT_LIST_REQUEST, CONTACT_LIST_SUCCESS, CONTACT_LIST_FAILURE, CONTACT_LIST_UPDATE,
-    CONTACT_LIST_AddNEW } from "../Constant";
+    CONTACT_LIST_AddNEW, CONTACT_LIST_FILTER, CONTACT_LIST_NOT_FILTER } from "../Constant";
 import { Platform, PermissionsAndroid } from 'react-native';
 import Contacts from "react-native-contacts";
 
@@ -12,7 +12,8 @@ export const contactListRequest = () => {
 export const contactListSuccess = contacts => {
     return {
         type: CONTACT_LIST_SUCCESS,
-        payload: contacts
+        payload: contacts,
+        mainContact: contacts,
     }
 }
 
@@ -24,7 +25,7 @@ export const contactListFailure = error => {
 }
 
 export const contactListupdate = (contacts) => {
-    console.log("action update:" )
+    console.log("action contactListupdate:" )
     return {
         type: CONTACT_LIST_UPDATE,
         payload: contacts
@@ -32,12 +33,29 @@ export const contactListupdate = (contacts) => {
 }
 
 export const contactListRandom = (contacts) => {
-    console.log("action update:" )
+    console.log("action contactListRandom:" )
     return {
         type: CONTACT_LIST_AddNEW,
         payload: contacts
     }
 }
+
+export const contactListfilter = (contacts) => {
+    console.log("action CONTACT_LIST_FILTER:" )
+    return {
+        type: CONTACT_LIST_FILTER,
+        payload: contacts
+    }
+}
+
+export const contactListnotfilter = (contacts) => {
+    console.log("action contactListnotfilter:" )
+    return {
+        type: CONTACT_LIST_NOT_FILTER,
+        payload: contacts
+    }
+}
+
 
 export const contactPermission = () => {
     return (dispatch) => {
