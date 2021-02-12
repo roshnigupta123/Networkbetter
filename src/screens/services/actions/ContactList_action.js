@@ -24,11 +24,12 @@ export const contactListFailure = error => {
     }
 }
 
-export const contactListupdate = (contacts) => {
+export const contactListupdate = (contacts,id) => {
     console.log("action contactListupdate:" )
     return {
         type: CONTACT_LIST_UPDATE,
-        payload: contacts
+        payload: contacts,
+        id:id
     }
 }
 

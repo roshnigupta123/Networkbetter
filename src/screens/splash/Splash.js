@@ -7,9 +7,16 @@ const image = require('../images/Group1.png');
 class Splash extends Component {
 
    componentDidMount(){
-    this.props.contactPermission();
-    this.props.permission_calls();
-  //  console.log('spalsh', this.props.permission_calls())
+    
+    console.log('spalsh', this.props)
+       let ContactList = this.props.contacts.ContactList_reducer.contacts
+       console.log('spalsh', ContactList.length)
+       if(ContactList.length == 0){
+        this.props.contactPermission();
+        this.props.permission_calls();
+        console.log('splash screen', ContactList.length )
+       }
+    
    } 
 
     render() {

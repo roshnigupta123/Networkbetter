@@ -7,6 +7,9 @@ import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import call from 'react-native-phone-call';
 
+var SQLite = require('react-native-sqlite-storage')
+var db = SQLite.openDatabase({name: 'test.db', createFromLocation: '~sqlitedatabase.db'})
+
 const image = require('../images/Group2.png');
 
 function* range(start, end) {
@@ -23,21 +26,26 @@ class Home extends Component {
       //  this.ChangeColorFunction()
       // }, 1000);
       this.state = {
-        cards: [],
-        swipedAllCards: false,
-        swipeDirection: '',
-        cardIndex: 0,
+       
         defaultAnimationDialog: false,
         defaultAnimationDialog2: false,
         textInput_Holder: '',
         ColorHolder: '',
         selectedItems: [],
-        diffInDays: '',
         category: '',
-        myCardIndex: '',
-        number: [],
-        recordID: ''
+        recordID: '',
+        myId:''
       }
+
+      db.transaction((tx) => {
+        tx.executeSql('SELECT * FROM contactList WHERE displayName=?', ['Rakhi Pandaye'], (tx, results) => {
+            var len = results.rows.length;
+            if(len > 0) {
+              var row = results.rows.item(0);
+              this.setState({myId: row.recordId});
+            }
+          });
+      });
   }
 
   addCategory() {
@@ -156,16 +164,8 @@ class Home extends Component {
                   <Text style={styles.subtitle}>{card.category}</Text>
                 </View>}
 
-              {/* <Text>{index}category {card.recordID}</Text> */}
             </View>
           </View>
-
-         {/* {this.removeDublicateNumber(card.phoneNumbers)} */}
-
-        
-          {this.state.number.map((item,index)=>{
-           return <Text>{item}</Text>
-         })}
 
           {card.phoneNumbers &&
             card.phoneNumbers.length > 0 &&
@@ -196,19 +196,7 @@ class Home extends Component {
   }
   };
 
-  onSwiped = (type) => {
-    console.log(`on swiped ${type}`)
-  }
-
-  onSwipedAllCards = () => {
-    this.setState({
-      swipedAllCards: true
-    })
-  };
-
-  swipeLeft = () => {
-    this.swiper.swipeLeft()
-  };
+  
 
   joinData = () => {
     this.props.categoryList(this.state.textInput_Holder)
@@ -225,12 +213,22 @@ class Home extends Component {
 
   generateRandomContact() {
     let contactList = this.props.contacts.ContactList_reducer.contacts;
-    for (var finalArr = [contactList], i = 0; i < contactList.length; i++) {
-      finalArr[i] = contactList[Math.floor(Math.random() * contactList.length)]
+    // for (var finalArr = [contactList], i = 0; i < contactList.length; i++) {
+    //   finalArr[i] = contactList[Math.floor(Math.random() * contactList.length)]
+    // }
+   
+    
+    let RandomContactArray = []
+    while (contactList.length !== 0){
+      let randomIndex = Math.floor(Math.random()*contactList.length);
+      RandomContactArray.push(contactList[randomIndex]);
+      contactList.splice(randomIndex,1)
     }
-    // this.setState({ cards: finalArr })
-    //console.log('finalArr',finalArr[0])
-    this.props.randomContact(finalArr)
+    contactList = RandomContactArray
+
+     console.log('contactList',contactList)
+
+    this.props.randomContact(contactList)
   }
 
   render() {
@@ -315,7 +313,7 @@ class Home extends Component {
         </Swiper> */}
 
         <View style={styles.blackCard}>
-          <Text style={styles.crdtext}>
+          <Text style={styles.crdtext}>{this.state.myId}
             “we value your privacy, this is an offline application. We dont store anything on our servers“</Text>
         </View>
 
@@ -340,11 +338,7 @@ class Home extends Component {
                 onTextChange={(text) => console.log(text)}
                 onItemSelect={item => {
                   this.setState({ selectedItems: item })
-                  let data = this.props.contacts.ContactList_reducer.contacts
-                  this.props.update(item.name)
-                  let index = data.findIndex(el => el.recordID === this.state.recordID);
-                  data[index] = { ...data[index], category: item.name };
-                  this.props.contacts.ContactList_reducer.contacts = data
+                  this.props.update(item.name, this.state.recordID)
                 }}
                 selectedItems={this.state.selectedItems}
                 containerStyle={{ marginTop: 20 }}

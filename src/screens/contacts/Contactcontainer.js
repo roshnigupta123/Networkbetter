@@ -9,9 +9,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    contactPermission: data => dispatch(contactPermission(data)),
+    //contactPermission: data => dispatch(contactPermission(data)),
     categoryList: data => dispatch(categoryList(data)),
-    update: (data)=>dispatch(contactListupdate(data)),
+    update: (data,id)=>dispatch(contactListupdate(data,id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contact);

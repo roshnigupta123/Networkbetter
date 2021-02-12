@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {persistReducer} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import persistStore from 'redux-persist/es/persistStore';
-
+import {store, persistor} from './src/screens/services/store/Store';
 LogBox.ignoreAllLogs(true);
 
 const logger=store=>{
@@ -27,20 +27,17 @@ const logger=store=>{
   }
 }
 
-const PersistConfig ={
-  key :'root',
-  storage: AsyncStorage
-}
+// const PersistConfig ={
+//   key :'root',
+//   storage: AsyncStorage,
+//   whitelist: ['ContactList_reducer,CategoryList_reducer'],
+// }
 
-const persistedReducer = persistReducer(PersistConfig, Root_reducers)
+// const persistedReducer = persistReducer(PersistConfig, Root_reducers)
 
-let store = createStore(persistedReducer, applyMiddleware(logger, thunk))
-let persistor = persistStore(store)
+// let store = createStore(persistedReducer, applyMiddleware(logger, thunk))
+// let persistor = persistStore(store)
 
-store.subscribe(()=>{
-  // console.log('store updated', store.getState())
-  store.getState()
-})
 
 const Root = () => (
     <Provider store={store}>

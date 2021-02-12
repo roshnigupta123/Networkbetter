@@ -14,8 +14,8 @@ export default class Contact extends Component {
       this.state = {
         defaultAnimationDialog: false,
         defaultAnimationDialog2: false,
-        index:'',
-        selectedItems:[]
+        index: '',
+        selectedItems: []
       }
   }
 
@@ -32,8 +32,8 @@ export default class Contact extends Component {
     );
   };
 
-  addButton(index) {
-    this.setState({ defaultAnimationDialog: true, index:index })
+  addButton(recordID) {
+    this.setState({ defaultAnimationDialog: true, index: recordID })
   }
 
   addCategory() {
@@ -41,19 +41,16 @@ export default class Contact extends Component {
   }
 
   joinData = () => {
-    this.props.categoryList(this.state.textInput_Holder )
+    this.props.categoryList(this.state.textInput_Holder)
     this.setState({ assign_category: '', textInput_Holder: '' })
     // this.props.CategoryList_reducer.push({ name: this.state.textInput_Holder });
     console.log("arrr item", this.props.contacts.CategoryList_reducer)
   }
 
-  assign_category(){
+  assign_category() {
     this.setState({ defaultAnimationDialog: false });
-    console.log('selected item',this.state.selectedItems.id)
-    let data = this.props.contacts.ContactList_reducer.mainContact
-    data[this.state.index].category = this.state.selectedItems.id
-    this.props.contacts.ContactList_reducer.mainContact = data
-    this.props.update(this.state.selectedItems.id)
+    console.log('selected item', this.state.selectedItems.id)
+    this.props.update(this.state.selectedItems.id,this.state.index)
   }
 
   ItemView = ({ item, index }) => {
@@ -67,7 +64,7 @@ export default class Contact extends Component {
             <TouchableOpacity style={styles.categorybtn}>
               <Text style={styles.subtitle}>{item.category}</Text>
             </TouchableOpacity>
-          ) : <TouchableOpacity style={styles.categorybtn} onPress={() => this.addButton(index)}>
+          ) : <TouchableOpacity style={styles.categorybtn} onPress={() => this.addButton(item.recordID)}>
               <Text style={styles.subtitle}>Add</Text>
             </TouchableOpacity>}
         </View>
@@ -85,22 +82,31 @@ export default class Contact extends Component {
     );
   };
 
-  componentDidMount(){
-        console.log('selected category',this.props.contacts.CategoryList_reducer.name)
+  componentDidMount() {
+    // console.log('selected category', this.props.contacts.CategoryList_reducer.name)
 
-     let  mainContact = [{id:"1", category:"Friends"}, {id:"2", category:"Friends"},{id:"3", category:"Work"},
-     {id:"4", category:"Business"},{id:"5", category:"Family"}]
-      var filtered_ids = _.filter(mainContact, function(p){
-        return _.includes(["Friends", "Work"], p.category);
-    });
-    console.log('filtered_ids',filtered_ids)
+    // let mainContact = [{ id: "1", category: "Friends" }, { id: "2", category: "Friends" }, { id: "3", category: "Work" },
+    // { id: "4", category: "Business" }, { id: "5", category: "Family" }]
+    // var filtered_ids = _.filter(mainContact, function (p) {
+    //   return _.includes(["Friends", "Work"], p.category);
+    // });
+    // console.log('filtered_ids', filtered_ids)
+
+    console.log('contact screen',this.props.contacts.ContactList_reducer.contacts.length)
+   
   }
+
 
   render() {
     if (this.props.contacts.ContactList_reducer.loading) {
       <ActivityIndicator size="large" />
     }
-
+//   let contacts = this.props.contacts.ContactList_reducer.contacts
+//     contacts.sort(
+//       (a, b) =>
+//           a.givenName.toLowerCase() > b.givenName.toLowerCase(),
+//   );
+// console.log('contactList',contacts)
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="transparent" translucent barStyle="light-content" />
@@ -118,7 +124,7 @@ export default class Contact extends Component {
           </View>
         </ImageBackground>
         <FlatList
-          data={this.props.contacts.ContactList_reducer.mainContact}
+          data={this.props.contacts.ContactList_reducer.contacts}
           ListHeaderComponent={this.ListHeader()}
           ItemSeparatorComponent={this.ItemSeparatorView}
           renderItem={(item) => this.ItemView(item)}
@@ -145,11 +151,7 @@ export default class Contact extends Component {
               <SearchableDropdown
                 onTextChange={(text) => console.log(text)}
                 onItemSelect={item => {
-                  // let data = this.props.contacts.ContactList_reducer.mainContact
-                  // data[this.state.index].category = item.name
-                  // this.props.contacts.ContactList_reducer.mainContact = data
-                  this.setState({ selectedItems: item});
-                 // this.props.update(item.name)
+                  this.setState({ selectedItems: item });
                 }}
                 selectedItems={this.state.selectedItems}
                 containerStyle={{ marginTop: 20 }}
@@ -169,7 +171,7 @@ export default class Contact extends Component {
 
               <View style={styles.center}>
                 <TouchableOpacity onPress={() => {
-                this.assign_category()
+                  this.assign_category()
                 }} style={styles.assignbutton}>
                   <Text style={styles.buttonText}>Assign</Text>
                 </TouchableOpacity>
