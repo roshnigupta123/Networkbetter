@@ -2,6 +2,7 @@ import { CONTACT_LIST_REQUEST, CONTACT_LIST_SUCCESS, CONTACT_LIST_FAILURE, CONTA
     CONTACT_LIST_AddNEW, CONTACT_LIST_FILTER, CONTACT_LIST_NOT_FILTER } from "../Constant";
 import { Platform, PermissionsAndroid } from 'react-native';
 import Contacts from "react-native-contacts";
+var _ = require('lodash');
 
 export const contactListRequest = () => {
     return {
@@ -13,7 +14,7 @@ export const contactListSuccess = contacts => {
     return {
         type: CONTACT_LIST_SUCCESS,
         payload: contacts,
-        mainContact: contacts,
+        // mainContact: contacts,
     }
 }
 
@@ -34,18 +35,23 @@ export const contactListupdate = (contacts,id) => {
 }
 
 export const contactListRandom = (contacts) => {
-    console.log("action contactListRandom:" )
+    console.log("action contactListRandom:" , contacts)
     return {
         type: CONTACT_LIST_AddNEW,
         payload: contacts
     }
 }
 
-export const contactListfilter = (contacts) => {
-    console.log("action CONTACT_LIST_FILTER:" )
+export const contactListfilter = (contacts, categorys,filterContact) => {
+    console.log("action CONTACT_LIST_FILTER:",contacts,categorys,filterContact )
     return {
         type: CONTACT_LIST_FILTER,
-        payload: contacts
+        payload: {
+            category:categorys,
+            contacts : categorys.length == 0 ? filterContact : _.filter(contacts, function (p) {
+                return _.includes(categorys, p.category);}) 
+        } 
+        
     }
 }
 

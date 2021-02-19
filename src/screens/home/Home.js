@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 // import Swiper from 'react-native-deck-swiper'
 import Swiper from 'react-native-realistic-deck-swiper'
-import { Button, TouchableOpacity, Text, View, ImageBackground, StatusBar, Image, Linking, ScrollView, TextInput } from 'react-native'
+import { Alert, TouchableOpacity, Text, View, ImageBackground, StatusBar, Image, Linking, ScrollView, TextInput, BackHandler } from 'react-native'
 import styles from "./Styles";
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import call from 'react-native-phone-call';
-
-var SQLite = require('react-native-sqlite-storage')
-var db = SQLite.openDatabase({name: 'test.db', createFromLocation: '~sqlitedatabase.db'})
 
 const image = require('../images/Group2.png');
 
@@ -37,15 +34,6 @@ class Home extends Component {
         myId:''
       }
 
-      db.transaction((tx) => {
-        tx.executeSql('SELECT * FROM contactList WHERE displayName=?', ['Rakhi Pandaye'], (tx, results) => {
-            var len = results.rows.length;
-            if(len > 0) {
-              var row = results.rows.item(0);
-              this.setState({myId: row.recordId});
-            }
-          });
-      });
   }
 
   addCategory() {
@@ -60,14 +48,6 @@ class Home extends Component {
     })
   }
 
-  onPressAssign() {
-    this.setState({ defaultAnimationDialog: false })
-    let data = this.props.contacts.ContactList_reducer.contacts
-    this.props.update(this.state.selectedItems.name)
-    let index = data.findIndex(el => el.recordID === this.state.recordID);
-    data[index] = { ...data[index], category: this.state.selectedItems.name };
-    this.props.contacts.ContactList_reducer.contacts = data
-  }
 
   triggerCall = (item) => {
     const args = {
@@ -145,6 +125,30 @@ class Home extends Component {
   }
   }
 
+  //---------------------------------hardwareBackPress button------------------------------------
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+  }
+
+  onBackPress = () => {
+    Alert.alert(
+      ' Network better ',
+      ' Do you want to exit ?',
+      [
+        { text: 'Yes', onPress: () => BackHandler.exitApp(
+          this.props.contactListfilter(this.props.contacts.ContactList_reducer.contacts,[],
+            this.props.contacts.ContactList_reducer.filterContact)
+        ) },
+        { text: 'No', onPress: () => console.log('NO Pressed') }
+      ],
+      { cancelable: true },
+    );
+    return true;
+  }
+
+  //------------------------------------------------------------------
+
   renderCard = (card, index) => {
     if(card!=null){
     return (
@@ -196,7 +200,6 @@ class Home extends Component {
   }
   };
 
-  
 
   joinData = () => {
     this.props.categoryList(this.state.textInput_Holder)
@@ -209,6 +212,7 @@ class Home extends Component {
   UNSAFE_componentWillMount() {
     this.generateRandomContact();
     this.ChangeColorFunction();
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
   }
 
   generateRandomContact() {
@@ -224,11 +228,11 @@ class Home extends Component {
       RandomContactArray.push(contactList[randomIndex]);
       contactList.splice(randomIndex,1)
     }
-    contactList = RandomContactArray
+ //   contactList = RandomContactArray
 
-     console.log('contactList',contactList)
+     console.log('contactList',contactList.length)
 
-    this.props.randomContact(contactList)
+    this.props.randomContact(RandomContactArray)
   }
 
   render() {
@@ -254,7 +258,7 @@ class Home extends Component {
               <Text style={styles.NWtxt}>NETWORK <Text style={styles.bettertxt}>BETTER</Text></Text>
             </View>
           </View>
-
+        {this.props.contacts.ContactList_reducer.contacts.length!=0 ? (
           <Swiper
             cardsData={this.props.contacts.ContactList_reducer.contacts}
             renderCard={this.renderCard}
@@ -264,6 +268,12 @@ class Home extends Component {
             }}
             style={styles.card}
           />
+          ): 
+          (
+            <View style={[styles.center,{flex:1}]}>
+            <Text>Filtered contacts not found</Text>
+            </View>
+          )}
         </ImageBackground>
         {/* <Swiper
           ref={swiper => {
@@ -313,7 +323,7 @@ class Home extends Component {
         </Swiper> */}
 
         <View style={styles.blackCard}>
-          <Text style={styles.crdtext}>{this.state.myId}
+          <Text style={styles.crdtext}>
             “we value your privacy, this is an offline application. We dont store anything on our servers“</Text>
         </View>
 
@@ -338,7 +348,7 @@ class Home extends Component {
                 onTextChange={(text) => console.log(text)}
                 onItemSelect={item => {
                   this.setState({ selectedItems: item })
-                  this.props.update(item.name, this.state.recordID)
+                  // this.props.update(item.name, this.state.recordID)
                 }}
                 selectedItems={this.state.selectedItems}
                 containerStyle={{ marginTop: 20 }}
@@ -359,6 +369,7 @@ class Home extends Component {
               <View style={styles.center}>
                 <TouchableOpacity onPress={() => {
                   this.setState({ defaultAnimationDialog: false })
+                  this.props.update(this.state.selectedItems.name, this.state.recordID)
                 }} style={styles.assignbutton}>
                   <Text style={styles.buttonText}>Assign</Text>
                 </TouchableOpacity>

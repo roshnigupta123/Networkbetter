@@ -15,7 +15,8 @@ export default class Contact extends Component {
         defaultAnimationDialog: false,
         defaultAnimationDialog2: false,
         index: '',
-        selectedItems: []
+        selectedItems: [],
+        sortContact:[]
       }
   }
 
@@ -50,7 +51,11 @@ export default class Contact extends Component {
   assign_category() {
     this.setState({ defaultAnimationDialog: false });
     console.log('selected item', this.state.selectedItems.id)
-    this.props.update(this.state.selectedItems.id,this.state.index)
+    this.props.update(this.state.selectedItems.id, this.state.index)
+    let data = this.state.sortContact
+    let index = data.findIndex(el => el.recordID === this.state.index);
+      data[index] = { ...this.state.sortContact[index], category:  this.state.selectedItems.id };
+      this.setState({sortContact:data})
   }
 
   ItemView = ({ item, index }) => {
@@ -82,6 +87,17 @@ export default class Contact extends Component {
     );
   };
 
+  Sorting_func() {
+    let contacts = this.props.contacts.ContactList_reducer.contacts
+   let contactsCopy = [...contacts];
+    let sortContact = contactsCopy.sort(
+      (a, b) =>
+        a.givenName.toLowerCase() > b.givenName.toLowerCase(),
+    );
+    //console.log('contactList', sortContact)
+    this.setState({sortContact:sortContact})
+  }
+
   componentDidMount() {
     // console.log('selected category', this.props.contacts.CategoryList_reducer.name)
 
@@ -92,8 +108,8 @@ export default class Contact extends Component {
     // });
     // console.log('filtered_ids', filtered_ids)
 
-    console.log('contact screen',this.props.contacts.ContactList_reducer.contacts.length)
-   
+    console.log('contact screen', this.props.contacts.ContactList_reducer.contacts.length)
+    this.Sorting_func();
   }
 
 
@@ -101,12 +117,7 @@ export default class Contact extends Component {
     if (this.props.contacts.ContactList_reducer.loading) {
       <ActivityIndicator size="large" />
     }
-//   let contacts = this.props.contacts.ContactList_reducer.contacts
-//     contacts.sort(
-//       (a, b) =>
-//           a.givenName.toLowerCase() > b.givenName.toLowerCase(),
-//   );
-// console.log('contactList',contacts)
+
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="transparent" translucent barStyle="light-content" />
@@ -117,14 +128,16 @@ export default class Contact extends Component {
                 <Image source={require('../images/left-arrow.png')} style={styles.img} tintColor="#fff" />
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+              {/* <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
                 <Image source={require('../images/filter.png')} style={styles.img} tintColor="#fff" />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
         </ImageBackground>
         <FlatList
-          data={this.props.contacts.ContactList_reducer.contacts}
+         // data={this.props.contacts.ContactList_reducer.contacts}
+         data={this.state.sortContact}
+          //   extraData={this.props.contacts.ContactList_reducer.contacts}
           ListHeaderComponent={this.ListHeader()}
           ItemSeparatorComponent={this.ItemSeparatorView}
           renderItem={(item) => this.ItemView(item)}

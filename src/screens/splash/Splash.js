@@ -8,15 +8,16 @@ class Splash extends Component {
 
    componentDidMount(){
     
-    console.log('spalsh', this.props)
+   // console.log('spalsh', this.props.contacts.ContactList_reducer.filterContact)
        let ContactList = this.props.contacts.ContactList_reducer.contacts
-       console.log('spalsh', ContactList.length)
-       if(ContactList.length == 0){
+       //console.log('spalsh', ContactList.length)
+       if(ContactList.length == 0 || ContactList.length == undefined ){
         this.props.contactPermission();
-        this.props.permission_calls();
-        console.log('splash screen', ContactList.length )
+       // this.props.permission_calls();
+      //  console.log('splash screen', ContactList.length )
        }
-    
+      // this.props.permission_calls();
+     // alert(this.props.contacts.ContactList_reducer.filterContact)
    } 
 
     render() {

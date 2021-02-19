@@ -1,6 +1,6 @@
 import {
   CONTACT_LIST_REQUEST, CONTACT_LIST_SUCCESS, CONTACT_LIST_FAILURE,
-  CONTACT_LIST_UPDATE, CONTACT_LIST_AddNEW, CONTACT_LIST_FILTER,CONTACT_LIST_NOT_FILTER
+  CONTACT_LIST_UPDATE, CONTACT_LIST_AddNEW, CONTACT_LIST_FILTER, CONTACT_LIST_NOT_FILTER
 } from "../Constant";
 var _ = require('lodash');
 
@@ -8,7 +8,8 @@ const initialState = {
   loading: false,
   contacts: [],
   error: '',
-  mainContact: []
+  filterContact: [],
+  category: []
 }
 
 const ContactList_reducer = (state = initialState, action) => {
@@ -23,7 +24,7 @@ const ContactList_reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         contacts: action.payload,
-        mainContact: action.payload,
+        filterContact: action.payload,
         error: ''
       }
     case CONTACT_LIST_FAILURE:
@@ -36,7 +37,8 @@ const ContactList_reducer = (state = initialState, action) => {
     case CONTACT_LIST_AddNEW:
       // console.log('newadd',action.payload)
       return {
-        ...state, contacts: action.payload
+        ...state, contacts: action.payload,
+        filterContact: action.payload,
       }
 
     case CONTACT_LIST_UPDATE: {
@@ -47,31 +49,32 @@ const ContactList_reducer = (state = initialState, action) => {
       return {
         ...state,
         contacts: data,
+       // filterContact:data
       }
 
     }
 
     case CONTACT_LIST_FILTER: {
       console.log('CONTACT_LIST_FILTER', action.payload)
-      const newMainContact= state.mainContact
-      var filtered_ids = _.filter(newMainContact, function (p) {
-      return _.includes(action.payload, p.category);
-    });
-    console.log('filtered_ids', filtered_ids)
+      //   const newMainContact= state.contacts
+      //   const data = [...newMainContact]
+      //   var filtered_ids = _.filter(data, function (p) {
+      //   return _.includes(action.payload, p.category);
+      // });
+      // console.log('filtered_ids', filtered_ids)
       return {
         ...state,
-        mainContact: filtered_ids,
+        contacts: action.payload.contacts, category: action.payload.category
       }
     }
 
     case CONTACT_LIST_NOT_FILTER: {
       console.log('CONTACT_LIST_NOT_FILTER', action)
       return {
-         ...state,
-        mainContact: action.payload,
+        ...state,
+        contacts: action.payload,
       }
     }
-
 
     default: return state;
   }

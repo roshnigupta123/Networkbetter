@@ -4,7 +4,7 @@ const initialState = {
     name: [
         {"id": "Friends", "name": "Friends","status":false},
         {"id": "Work", "name": "Work","status":false},
-        {"id": "Business", "name": "Bussiness","status":false},
+        {"id": "Business", "name": "Business","status":false},
         ]
 }
 

@@ -3,7 +3,8 @@ import { CallLogs_LIST_SUCCESS, CallLogs_LIST_REQUEST, CallLogs_LIST_FAILURE } f
 const initialState = {
     loading: false,
     callLogs: [],
-    error: ''
+    error: '',
+    mylogs:[]
   }
 
   const CallLog_reducer = (state = initialState, action) => {
@@ -17,6 +18,7 @@ const initialState = {
         return {
           loading: false,
           callLogs: action.payload,
+          mylogs: action.payload,
           error: ''
         }
       case CallLogs_LIST_FAILURE:

@@ -4,12 +4,12 @@ import Sidebarmenu from './Sidebarmenu'
 import {contactListfilter, contactListnotfilter, contactPermission} from '../services/actions/ContactList_action';
 
 const mapStateToProps=state=>({
-    category: state
+    category: state,
   })
   
   const mapDispatchToProps=dispatch=>({
     categoryList: data=>dispatch(categoryList(data)),
-    contactListfilter: data=>dispatch(contactListfilter(data)),
+    contactListfilter: (data,category,filterContact)=>dispatch(contactListfilter(data,category,filterContact)),
     contactListnotfilter: data=>dispatch(contactListnotfilter(data)),
     // contactPermission: data=>dispatch(contactPermission(data)),
   })
