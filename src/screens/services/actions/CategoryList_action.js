@@ -1,9 +1,9 @@
-import {ADD_CATEGORY} from '../Constant';
+import { ADD_CATEGORY } from '../Constant';
 
-export const categoryList = (data) =>{
+export const categoryList = (data) => {
     console.log("action", data)
     return {
-             type: ADD_CATEGORY,
-             data: data
+        type: ADD_CATEGORY,
+        data: data
     }
 }

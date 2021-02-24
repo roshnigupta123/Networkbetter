@@ -1,5 +1,5 @@
 import React from "react";
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createDrawerNavigator } from "react-navigation-drawer";
@@ -9,19 +9,19 @@ import Contactcontainer from './src/screens/contacts/Contactcontainer';
 import Sidebarcontainer from "./src/screens/filter/Sidebarcontainer.js";
 
 const AppNavigator = createStackNavigator({
- 
-    Home: {
-      screen: Homecontainer,
-      navigationOptions: {
-        headerShown: false,
-      },
+
+  Home: {
+    screen: Homecontainer,
+    navigationOptions: {
+      headerShown: false,
     },
-    Contact: {
-        screen: Contactcontainer,
-        navigationOptions: {
-          headerShown: false,
-        },
-      }
+  },
+  Contact: {
+    screen: Contactcontainer,
+    navigationOptions: {
+      headerShown: false,
+    },
+  }
 },
 )
 
@@ -36,15 +36,15 @@ const dashboardStack = createDrawerNavigator({
 )
 
 const Auth = createSwitchNavigator({
-    Splash: { screen:Splashcontainer },
-    Dashboard: { screen: dashboardStack }
+  Splash: { screen: Splashcontainer },
+  Dashboard: { screen: dashboardStack }
 })
 
 const AppContainer = createAppContainer(Auth);
 
 const App = () => {
   return <AppContainer />
-       
+
 };
 
 export default App;

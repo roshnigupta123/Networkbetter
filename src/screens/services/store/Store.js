@@ -21,7 +21,7 @@ const persistConfig = {
   key: 'observeNow',
   storage: AsyncStorage,
   blacklist: ['filter_reducer'],
- // transforms: [blacklistTransform],
+  // transforms: [blacklistTransform],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(
@@ -31,13 +31,3 @@ const store = createStore(
 const persistor = persistStore(store);
 export { store, persistor };
 
-
-// 
-
-
-// const persistConfig = {
-//     key: 'root',
-//     storage,
-//    
-
-// }

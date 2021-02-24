@@ -65,19 +65,19 @@ export default class Sidebarmenu extends Component {
   }
 
   clear_filter() {
-    let tempcategory= [] 
-    let data =this.props.category.CategoryList_reducer.name
-      let nObj = data.filter(ele => {
-        ele.status = false;
-        return ele;
+    let tempcategory = []
+    let data = this.props.category.CategoryList_reducer.name
+    let nObj = data.filter(ele => {
+      ele.status = false;
+      return ele;
     });
 
-    this.props.contactListfilter(this.props.category.ContactList_reducer.contacts,tempcategory,
-    this.props.category.ContactList_reducer.filterContact)
-    console.log('tempcategory',tempcategory)
+    this.props.contactListfilter(this.props.category.ContactList_reducer.contacts, tempcategory,
+      this.props.category.ContactList_reducer.filterContact)
+    console.log('tempcategory', tempcategory)
   }
 
-  UNSAFE_componentWillMount(){
+  UNSAFE_componentWillMount() {
     this.clear_filter();
   }
 
@@ -85,8 +85,8 @@ export default class Sidebarmenu extends Component {
     if (item.status == true) {
       return (
         <View style={styles.activebox}
-          // onPress={() => { this.uncheckbox(index, item.status) }}
-          >
+        // onPress={() => { this.uncheckbox(index, item.status) }}
+        >
           <Text style={styles.boxtext} numberOfLines={1}>{item.name}</Text>
         </View>
       )

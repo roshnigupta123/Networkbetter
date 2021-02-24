@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-realistic-deck-swiper'
 import SwipeCards from 'react-native-swipe-cards';
-import { Alert, TouchableOpacity, Text, View, ImageBackground, StatusBar, Image, Linking, ScrollView, TextInput, BackHandler,
-   } from 'react-native'
+import {
+  Alert, TouchableOpacity, Text, View, ImageBackground, StatusBar, Image, Linking, ScrollView, TextInput, BackHandler,
+} from 'react-native'
 import styles from "./Styles";
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import SearchableDropdown from 'react-native-searchable-dropdown';
@@ -13,16 +14,16 @@ const image = require('../images/Group2.png');
 class Home extends Component {
   constructor(props) {
     super(props)
-      this.state = {
-        defaultAnimationDialog: false,
-        defaultAnimationDialog2: false,
-        textInput_Holder: '',
-        ColorHolder: '',
-        selectedItems: [],
-        category: '',
-        recordID: '',
-        myId:''
-      }
+    this.state = {
+      defaultAnimationDialog: false,
+      defaultAnimationDialog2: false,
+      textInput_Holder: '',
+      ColorHolder: '',
+      selectedItems: [],
+      category: '',
+      recordID: '',
+      myId: ''
+    }
 
   }
 
@@ -76,18 +77,18 @@ class Home extends Component {
   };
 
   ChangeColorFunction = () => {
-   
-    var trans = '0.5'; 
-  var color = 'rgba(';
-  for (var i = 0; i < 3; i++) {
-    color += Math.floor(Math.random() * 256) + ',';
-  }
-  color += trans + ')';
-  
+
+    var trans = '0.5';
+    var color = 'rgba(';
+    for (var i = 0; i < 3; i++) {
+      color += Math.floor(Math.random() * 256) + ',';
+    }
+    color += trans + ')';
+
     this.setState({
       ColorHolder: color
     })
-    console.log('ColorHolder',color)
+    console.log('ColorHolder', color)
   }
 
   removeDublicateNumber = (phoneNumbers) => {
@@ -100,32 +101,32 @@ class Home extends Component {
       )
     console.log('number: ', number,)
 
- //  let number = ["070240 91890", "070240 91890", "90986 38200", "07024091890"]
+    //  let number = ["070240 91890", "070240 91890", "90986 38200", "07024091890"]
 
- if(number!=undefined){
-    var i = 0
-    var str = number;
-    var strLength = str.length;
-    for (i; i < strLength; i++) {
-      str = str.toString().replace("-", " ").split(",")
-      str = str.toString().replace(/\s+/g, "").split(",")
+    if (number != undefined) {
+      var i = 0
+      var str = number;
+      var strLength = str.length;
+      for (i; i < strLength; i++) {
+        str = str.toString().replace("-", " ").split(",")
+        str = str.toString().replace(/\s+/g, "").split(",")
+      }
+      let uni = str
+      if (uni != false) {
+        let u = uni.filter((v, i, a) => a.indexOf(v) === i)
+        this.setState({ number: u, value: u[0] });
+        console.log('unique', u);
+        this.setState({ number: u })
+      } else {
+        console.log('empty number array')
+      }
     }
-    let uni = str
-    if (uni != false) {
-      let u = uni.filter((v, i, a) => a.indexOf(v) === i)
-      this.setState({ number: u, value: u[0] });
-      console.log('unique', u);
-      this.setState({number: u})
-    } else {
-      console.log('empty number array')
-    }
-  }
   }
 
   //---------------------------------hardwareBackPress button------------------------------------
 
   componentWillUnmount() {
- //   BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    //   BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
   }
 
   onBackPress = () => {
@@ -133,10 +134,12 @@ class Home extends Component {
       ' Network better ',
       ' Do you want to exit ?',
       [
-        { text: 'Yes', onPress: () => BackHandler.exitApp(
-          this.props.contactListfilter(this.props.contacts.ContactList_reducer.contacts,[],
-            this.props.contacts.ContactList_reducer.filterContact)
-        ) },
+        {
+          text: 'Yes', onPress: () => BackHandler.exitApp(
+            this.props.contactListfilter(this.props.contacts.ContactList_reducer.contacts, [],
+              this.props.contacts.ContactList_reducer.filterContact)
+          )
+        },
         { text: 'No', onPress: () => console.log('NO Pressed') }
       ],
       { cancelable: true },
@@ -145,16 +148,16 @@ class Home extends Component {
   }
 
   //------------------------------------------------------------------
-  onSwiped =()=>{
+  onSwiped = () => {
     this.ChangeColorFunction();
   }
   renderCard = (card) => {
-   //  console.log('card list', card)
-    if(card !== undefined || card != null){
-    return (
+    //  console.log('card list', card)
+    if (card !== undefined || card != null) {
+      return (
 
-      <View style={{flex:1}}>
-      
+        <View style={{ flex: 1 }}>
+
           <View style={styles.swipecrdsty}>
             <View>
               <Text style={styles.title}>{card.displayName}</Text>
@@ -162,46 +165,46 @@ class Home extends Component {
 
             <View>
 
-          {card.category == "" ? (
-           <TouchableOpacity onPress={() => { this.onPress_plus(card.category, card.recordID) }} style={styles.plusicon}>
-           <Image source={require('../images/plus.png')} style={styles.plus} />
-         </TouchableOpacity>
-          ) : null}
+              {card.category == "" ? (
+                <TouchableOpacity onPress={() => { this.onPress_plus(card.category, card.recordID) }} style={styles.plusicon}>
+                  <Image source={require('../images/plus.png')} style={styles.plus} />
+                </TouchableOpacity>
+              ) : null}
 
-          {card.category == "Friends" ? (
-            <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(215, 38, 61, 0.12)' }]}
-              onPress={() => { this.onPress_plus(card.category, card.recordID) }}>
-              <Text style={[styles.subtitle, { color: '#D7263D' }]}>{card.category}</Text>
-            </TouchableOpacity>
-          ) : null}
+              {card.category == "Friends" ? (
+                <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(215, 38, 61, 0.12)' }]}
+                  onPress={() => { this.onPress_plus(card.category, card.recordID) }}>
+                  <Text style={[styles.subtitle, { color: '#D7263D' }]}>{card.category}</Text>
+                </TouchableOpacity>
+              ) : null}
 
-          {card.category == "Work" ? (
-            <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(249, 200, 1, 0.12)' }]}
-              onPress={() => { this.onPress_plus(card.category, card.recordID) }}>
-              <Text style={[styles.subtitle, { color: '#F9C801' }]}>{card.category}</Text>
-            </TouchableOpacity>
-          ) : null}
+              {card.category == "Work" ? (
+                <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(249, 200, 1, 0.12)' }]}
+                  onPress={() => { this.onPress_plus(card.category, card.recordID) }}>
+                  <Text style={[styles.subtitle, { color: '#F9C801' }]}>{card.category}</Text>
+                </TouchableOpacity>
+              ) : null}
 
-          {card.category == "Business" ? (
-            <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(76, 175, 80, 0.12)' }]}
-              onPress={() => { this.onPress_plus(card.category, card.recordID) }}>
-              <Text style={[styles.subtitle, { color: '#4CAF50' }]}>{card.category}</Text>
-            </TouchableOpacity>
-          ) : null}
-          
-          {card.category !== "Business" && card.category !== "Work" && card.category !== "Friends" &&
-           card.category !== "" ? (
-            <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}
-              onPress={() => { this.onPress_plus(card.category, card.recordID) }}>
-              <Text style={[styles.subtitle, { color: '#536CBC' }]}>{card.category}</Text>
-            </TouchableOpacity>
-          ) : null}
+              {card.category == "Business" ? (
+                <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(76, 175, 80, 0.12)' }]}
+                  onPress={() => { this.onPress_plus(card.category, card.recordID) }}>
+                  <Text style={[styles.subtitle, { color: '#4CAF50' }]}>{card.category}</Text>
+                </TouchableOpacity>
+              ) : null}
+
+              {card.category !== "Business" && card.category !== "Work" && card.category !== "Friends" &&
+                card.category !== "" ? (
+                  <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}
+                    onPress={() => { this.onPress_plus(card.category, card.recordID) }}>
+                    <Text style={[styles.subtitle, { color: '#536CBC' }]}>{card.category}</Text>
+                  </TouchableOpacity>
+                ) : null}
             </View>
           </View>
 
           {card.phoneNumbers &&
             card.phoneNumbers.length > 0 &&
-            card.phoneNumbers.slice(0,2).map(
+            card.phoneNumbers.slice(0, 2).map(
               (numberData, numberIndex) => {
                 return <View style={[styles.swipecrdsty, { backgroundColor: '#F9F9F9' }]}>
                   <View>
@@ -215,138 +218,138 @@ class Home extends Component {
                     <TouchableOpacity onPress={() => this.initiateWhatsApp(numberData.number)}>
                       <Image source={require('../images/whatsapp.png')} style={[styles.humbrgrmenu]} />
                     </TouchableOpacity>
-                   
+
                   </View>
                 </View>
               }
             )
           }
-      
-      </View>
 
-    )
-  }
+        </View>
+
+      )
+    }
   };
 
   renderCardfilter = (card) => {
     //  console.log('card list', card)
-     if(card !== undefined || card != null){
-     return (
- 
-       <View style={[styles.cardfilter]}>
-           <View style={styles.swipecrdsty}>
-             <View>
-               <Text style={styles.title}>{card.displayName}</Text>
-             </View>
-             <View>
-             {card.category == "" ? (
-           <View 
-           //onPress={() => { this.onPress_plus(card.category, card.recordID) }} 
-           style={styles.plusicon}>
-           <Image source={require('../images/plus.png')} style={styles.plus} />
-         </View>
-          ) : null}
+    if (card !== undefined || card != null) {
+      return (
 
-          {card.category == "Friends" ? (
-            <View style={[styles.categorybtn, { backgroundColor: 'rgba(215, 38, 61, 0.12)' }]}
-             // onPress={() => this.onPress_plus(card.category, card.recordID)}
-             >
-              <Text style={[styles.subtitle, { color: '#D7263D' }]}>{card.category}</Text>
+        <View style={[styles.cardfilter]}>
+          <View style={styles.swipecrdsty}>
+            <View>
+              <Text style={styles.title}>{card.displayName}</Text>
             </View>
-          ) : null}
+            <View>
+              {card.category == "" ? (
+                <View
+                  //onPress={() => { this.onPress_plus(card.category, card.recordID) }} 
+                  style={styles.plusicon}>
+                  <Image source={require('../images/plus.png')} style={styles.plus} />
+                </View>
+              ) : null}
 
-          {card.category == "Work" ? (
-            <View style={[styles.categorybtn, { backgroundColor: 'rgba(249, 200, 1, 0.12)' }]}
-              //onPress={() => this.onPress_plus(card.category, card.recordID)}
-              >
-              <Text style={[styles.subtitle, { color: '#F9C801' }]}>{card.category}</Text>
+              {card.category == "Friends" ? (
+                <View style={[styles.categorybtn, { backgroundColor: 'rgba(215, 38, 61, 0.12)' }]}
+                // onPress={() => this.onPress_plus(card.category, card.recordID)}
+                >
+                  <Text style={[styles.subtitle, { color: '#D7263D' }]}>{card.category}</Text>
+                </View>
+              ) : null}
+
+              {card.category == "Work" ? (
+                <View style={[styles.categorybtn, { backgroundColor: 'rgba(249, 200, 1, 0.12)' }]}
+                //onPress={() => this.onPress_plus(card.category, card.recordID)}
+                >
+                  <Text style={[styles.subtitle, { color: '#F9C801' }]}>{card.category}</Text>
+                </View>
+              ) : null}
+
+              {card.category == "Business" ? (
+                <View style={[styles.categorybtn, { backgroundColor: 'rgba(76, 175, 80, 0.12)' }]}
+                // onPress={() => this.onPress_plus(card.category, card.recordID)}
+                >
+                  <Text style={[styles.subtitle, { color: '#4CAF50' }]}>{card.category}</Text>
+                </View>
+              ) : null}
+
+              {card.category !== "Business" && card.category !== "Work" && card.category !== "Friends" &&
+                card.category !== "" ? (
+                  <View style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}
+                  //onPress={() => this.onPress_plus(card.category, card.recordID)}
+                  >
+                    <Text style={[styles.subtitle, { color: '#536CBC' }]}>{card.category}</Text>
+                  </View>
+                ) : null}
             </View>
-          ) : null}
+          </View>
 
-          {card.category == "Business" ? (
-            <View style={[styles.categorybtn, { backgroundColor: 'rgba(76, 175, 80, 0.12)' }]}
-             // onPress={() => this.onPress_plus(card.category, card.recordID)}
-             >
-              <Text style={[styles.subtitle, { color: '#4CAF50' }]}>{card.category}</Text>
-            </View>
-          ) : null}
+          {card.phoneNumbers &&
+            card.phoneNumbers.length > 0 &&
+            card.phoneNumbers.slice(0, 2).map(
+              (numberData, numberIndex) => {
+                return <View style={[styles.swipecrdsty, { backgroundColor: '#F9F9F9' }]}>
+                  <View>
+                    <Text style={styles.title}>{numberData.number.replace(/[-\s]/g, "")}</Text>
+                  </View>
 
-          {card.category !== "Business" && card.category !== "Work" && card.category !== "Friends" &&
-           card.category !== "" ? (
-            <View style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}
-              //onPress={() => this.onPress_plus(card.category, card.recordID)}
-              >
-              <Text style={[styles.subtitle, { color: '#536CBC' }]}>{card.category}</Text>
-            </View>
-          ) : null}
-             </View>
-           </View>
- 
-           {card.phoneNumbers &&
-             card.phoneNumbers.length > 0 &&
-             card.phoneNumbers.slice(0,2).map(
-               (numberData, numberIndex) => {
-                 return <View style={[styles.swipecrdsty, { backgroundColor: '#F9F9F9' }]}>
-                   <View>
-                     <Text style={styles.title}>{numberData.number.replace(/[-\s]/g, "")}</Text>
-                   </View>
- 
-                   <View style={styles.row}>
-                     <TouchableOpacity onPress={() => this.triggerCall(numberData.number)} >
-                       <Image source={require('../images/call.png')} style={[styles.plus, { marginRight: 15 }]} />
-                     </TouchableOpacity>
-                     <TouchableOpacity onPress={() => this.initiateWhatsApp(numberData.number)} >
-                       <Image source={require('../images/whatsapp.png')} style={[styles.humbrgrmenu]} />
-                     </TouchableOpacity>
-                    
-                   </View>
-                 </View>
-               }
-             )
-           }
-       </View>
- 
-     )
-   }
-   };
+                  <View style={styles.row}>
+                    <TouchableOpacity onPress={() => this.triggerCall(numberData.number)} >
+                      <Image source={require('../images/call.png')} style={[styles.plus, { marginRight: 15 }]} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.initiateWhatsApp(numberData.number)} >
+                      <Image source={require('../images/whatsapp.png')} style={[styles.humbrgrmenu]} />
+                    </TouchableOpacity>
 
-   handleNope (card) {
+                  </View>
+                </View>
+              }
+            )
+          }
+        </View>
+
+      )
+    }
+  };
+
+  handleNope(card) {
     console.log(`Nope for ${card}`)
     return true;
   }
 
   joinData = () => {
-    if(this.state.textInput_Holder!=""){
-    this.props.categoryList(this.state.textInput_Holder)
-    this.setState({ assign_category: '', textInput_Holder: '' })
-    // this.props.CategoryList_reducer.push({ name: this.state.textInput_Holder });
-    console.log("arrr item", this.props.contacts.CategoryList_reducer)
-  }else{
-    alert('Please enter the category')
-  }
+    if (this.state.textInput_Holder != "") {
+      this.props.categoryList(this.state.textInput_Holder)
+      this.setState({ assign_category: '', textInput_Holder: '' })
+      // this.props.CategoryList_reducer.push({ name: this.state.textInput_Holder });
+      console.log("arrr item", this.props.contacts.CategoryList_reducer)
+    } else {
+      alert('Please enter the category')
+    }
   }
 
 
   UNSAFE_componentWillMount() {
     this.generateRandomContact();
-    
-  //  BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+
+    //  BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     // console.log('this.props home', this.props.contacts.filter_reducer.contacts)
   }
 
   generateRandomContact() {
     let contactList = this.props.contacts.ContactList_reducer.contacts;
-  
+
     let RandomContactArray = []
-    while (contactList.length !== 0){
-      let randomIndex = Math.floor(Math.random()*contactList.length);
+    while (contactList.length !== 0) {
+      let randomIndex = Math.floor(Math.random() * contactList.length);
       RandomContactArray.push(contactList[randomIndex]);
-      contactList.splice(randomIndex,1)
+      contactList.splice(randomIndex, 1)
     }
-     console.log('contactList',contactList.length)
+    console.log('contactList', contactList.length)
 
     this.props.randomContact(RandomContactArray)
   }
@@ -354,58 +357,58 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-      
+
         <StatusBar backgroundColor="transparent" translucent barStyle="dark-content" />
         <ImageBackground source={image} style={{ flex: 1 }}  >
-          <View style={{flex:1,backgroundColor: this.state.ColorHolder}}>
-          <View style={styles.content}>
-            <View style={styles.header}>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Contact')} >
-                <Image source={require('../images/menu.png')} style={styles.humbrgrmenu}/>
-              </TouchableOpacity>
+          <View style={{ flex: 1, backgroundColor: this.state.ColorHolder }}>
+            <View style={styles.content}>
+              <View style={styles.header}>
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.navigate('Contact')} >
+                  <Image source={require('../images/menu.png')} style={styles.humbrgrmenu} />
+                </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
-                <Image source={require('../images/filter.png')} style={styles.humbrgrmenu} tintColor="#fff" />
-              </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+                  <Image source={require('../images/filter.png')} style={styles.humbrgrmenu} tintColor="#fff" />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.center}>
+                <Text style={styles.NWtxt}>NETWORK <Text style={styles.bettertxt}>BETTER</Text></Text>
+              </View>
             </View>
 
-            <View style={styles.center}>
-              <Text style={styles.NWtxt}>NETWORK <Text style={styles.bettertxt}>BETTER</Text></Text>
-            </View>
+            {this.props.contacts.filter_reducer.contacts.length == 0 ?
+              this.props.contacts.ContactList_reducer.contacts.length != 0 ? (
+                <Swiper
+                  cardsData={this.props.contacts.ContactList_reducer.contacts}
+                  renderCard={this.renderCard}
+                  onSwiped={this.onSwiped}
+                  deckSize={3}
+                  infiniteSwipe={true}
+                  startIndex={0}
+                  containerStyle={{
+                    flex: 1,
+                    margin: 20
+                  }}
+                  style={styles.card}
+                />
+              ) :
+                (
+                  <View style={[styles.center, { flex: 1 }]}>
+                    <Text style={styles.subtitle}>Contacts not found</Text>
+                  </View>
+                ) :
+              <SwipeCards
+                cards={this.props.contacts.filter_reducer.contacts}
+                loop={true}
+                renderCard={this.renderCardfilter}
+                showYup={false}
+                showNope={false}
+                onClickHandler={() => console.log('hii')}
+              />
+            }
           </View>
-         
-          {this.props.contacts.filter_reducer.contacts.length==0 ?
-        this.props.contacts.ContactList_reducer.contacts.length != 0 ? (
-          <Swiper
-            cardsData={this.props.contacts.ContactList_reducer.contacts}
-            renderCard={this.renderCard}
-            onSwiped={this.onSwiped}
-            deckSize={3}
-            infiniteSwipe = {true}
-            startIndex={0}
-            containerStyle={{
-              flex: 1,
-              margin: 20
-            }}
-            style={styles.card}
-          />
-          ): 
-          (
-            <View style={[styles.center,{flex:1}]}>
-            <Text style={styles.subtitle}>Contacts not found</Text>
-            </View>
-          ):
-          <SwipeCards
-          cards={this.props.contacts.filter_reducer.contacts}
-          loop={true}
-          renderCard={this.renderCardfilter} 
-          showYup={false}
-          showNope={false}
-          onClickHandler={()=>console.log('hii')}
-        />
-        } 
-        </View>
         </ImageBackground>
 
         <View style={styles.blackCard}>
@@ -425,9 +428,9 @@ class Home extends Component {
             <DialogContent style={styles.content}>
               <View style={styles.header}>
                 <Text style={styles.title}>ASSIGN CATEGORY</Text>
-                <TouchableOpacity onPress={() => { 
-                  this.setState({ defaultAnimationDialog: false, selectedItems:[] })
-                   }}>
+                <TouchableOpacity onPress={() => {
+                  this.setState({ defaultAnimationDialog: false, selectedItems: [] })
+                }}>
                   <Image source={require('../images/cancel.png')} style={styles.plus} />
                 </TouchableOpacity>
               </View>
@@ -451,20 +454,20 @@ class Home extends Component {
 
               <TouchableOpacity onPress={() => { this.addCategory() }} style={styles.button}>
                 <View style={styles.row}>
-              <Image source={require('../images/plus.png')} tintColor="#fff" style={[styles.plus,{marginTop:2}]} />
-                <Text style={styles.buttonText}>  Create a new category</Text>
+                  <Image source={require('../images/plus.png')} tintColor="#fff" style={[styles.plus, { marginTop: 2 }]} />
+                  <Text style={styles.buttonText}>  Create a new category</Text>
                 </View>
               </TouchableOpacity>
 
               <View style={styles.center}>
-                {this.state.selectedItems.length!=0?(
-                <TouchableOpacity onPress={() => {
-                  this.setState({ defaultAnimationDialog: false, selectedItems:[] })
-                  this.props.update(this.state.selectedItems.name, this.state.recordID)
-                }} style={styles.assignbutton}>
-                  <Text style={styles.buttonText}>Assign</Text>
-                </TouchableOpacity>
-                ):null}
+                {this.state.selectedItems.length != 0 ? (
+                  <TouchableOpacity onPress={() => {
+                    this.setState({ defaultAnimationDialog: false, selectedItems: [] })
+                    this.props.update(this.state.selectedItems.name, this.state.recordID)
+                  }} style={styles.assignbutton}>
+                    <Text style={styles.buttonText}>Assign</Text>
+                  </TouchableOpacity>
+                ) : null}
               </View>
             </DialogContent>
           </Dialog>
@@ -480,7 +483,7 @@ class Home extends Component {
             <DialogContent style={styles.content}>
               <View style={[styles.header, { marginBottom: 20 }]}>
                 <Text style={styles.title}>ADD CATEGORY</Text>
-                <TouchableOpacity onPress={() => { this.setState({ defaultAnimationDialog2: false, selectedItems:[]  }) }}>
+                <TouchableOpacity onPress={() => { this.setState({ defaultAnimationDialog2: false, selectedItems: [] }) }}>
                   <Image source={require('../images/cancel.png')} style={styles.plus} />
                 </TouchableOpacity>
               </View>
@@ -504,7 +507,7 @@ class Home extends Component {
           </Dialog>
 
         </View>
-      
+
       </View>
 
     )

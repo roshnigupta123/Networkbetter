@@ -7,7 +7,7 @@ const colors = {
 
 const fontsize = {
     heading: 30,
-    subheading:24,
+    subheading: 24,
     title: 18,
     subtitle: 16,
     label: 14,
@@ -21,4 +21,4 @@ const fontfamily = {
     italic: 'Poppins-BoldItalic',
 }
 
-export { colors, fontsize, fontfamily}
+export { colors, fontsize, fontfamily }

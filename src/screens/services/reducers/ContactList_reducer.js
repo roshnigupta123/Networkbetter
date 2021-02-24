@@ -10,7 +10,7 @@ const initialState = {
   error: '',
   filterContact: [],
   category: [],
-  
+
 }
 
 const ContactList_reducer = (state = initialState, action) => {
@@ -50,7 +50,7 @@ const ContactList_reducer = (state = initialState, action) => {
       return {
         ...state,
         contacts: data,
-       // filterContact:data
+        // filterContact:data
       }
 
     }

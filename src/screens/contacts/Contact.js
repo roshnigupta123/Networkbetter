@@ -10,14 +10,14 @@ const image = require('../images/Header.png');
 export default class Contact extends Component {
   constructor(props) {
     super(props)
-      this.state = {
-        defaultAnimationDialog: false,
-        defaultAnimationDialog2: false,
-        index: '',
-        selectedItems: [],
-        sortContact:[],
-        textInput_Holder:''
-      }
+    this.state = {
+      defaultAnimationDialog: false,
+      defaultAnimationDialog2: false,
+      index: '',
+      selectedItems: [],
+      sortContact: [],
+      textInput_Holder: ''
+    }
   }
 
   ItemSeparatorView = () => {
@@ -42,14 +42,14 @@ export default class Contact extends Component {
   }
 
   joinData = () => {
-    if(this.state.textInput_Holder!=""){
-    this.props.categoryList(this.state.textInput_Holder)
-    this.setState({ assign_category: '', textInput_Holder: '' })
-    // this.props.CategoryList_reducer.push({ name: this.state.textInput_Holder });
-    console.log("arrr item", this.props.contacts.CategoryList_reducer)
-  }else{
-    alert('Please enter the category')
-  }
+    if (this.state.textInput_Holder != "") {
+      this.props.categoryList(this.state.textInput_Holder)
+      this.setState({ assign_category: '', textInput_Holder: '' })
+      // this.props.CategoryList_reducer.push({ name: this.state.textInput_Holder });
+      console.log("arrr item", this.props.contacts.CategoryList_reducer)
+    } else {
+      alert('Please enter the category')
+    }
   }
 
   assign_category() {
@@ -58,8 +58,8 @@ export default class Contact extends Component {
     this.props.update(this.state.selectedItems.id, this.state.index)
     let data = this.state.sortContact
     let index = data.findIndex(el => el.recordID == this.state.index);
-      data[index] = { ...this.state.sortContact[index], category:  this.state.selectedItems.id };
-      this.setState({sortContact:data, selectedItems:[]})
+    data[index] = { ...this.state.sortContact[index], category: this.state.selectedItems.id };
+    this.setState({ sortContact: data, selectedItems: [] })
   }
 
   ItemView = ({ item, index }) => {
@@ -70,11 +70,11 @@ export default class Contact extends Component {
             <Text style={styles.title}>{item.displayName} {''}</Text>
           </View>
 
-          {item.category === ""  ? (
+          {item.category === "" ? (
             <TouchableOpacity style={styles.categorybtn} onPress={() => this.addButton(item.recordID)}>
-              <Text style={[styles.subtitle,{color:'#A7A7A7'}]}>Add</Text>
+              <Text style={[styles.subtitle, { color: '#A7A7A7' }]}>Add</Text>
             </TouchableOpacity>
-          ) : null }
+          ) : null}
 
           {item.category == "Friends" ? (
             <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(215, 38, 61, 0.12)' }]}
@@ -97,13 +97,13 @@ export default class Contact extends Component {
             </TouchableOpacity>
           ) : null}
 
-           {item.category !== "Business" && item.category !== "Work" && item.category !== "Friends" &&
-           item.category !== "" ? (
-            <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}
-              onPress={() => this.addButton(item.recordID)}>
-              <Text style={[styles.subtitle, { color: '#536CBC' }]}>{item.category}</Text>
-            </TouchableOpacity>
-          ) : null}
+          {item.category !== "Business" && item.category !== "Work" && item.category !== "Friends" &&
+            item.category !== "" ? (
+              <TouchableOpacity style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}
+                onPress={() => this.addButton(item.recordID)}>
+                <Text style={[styles.subtitle, { color: '#536CBC' }]}>{item.category}</Text>
+              </TouchableOpacity>
+            ) : null}
 
         </View>
       </View>
@@ -135,42 +135,42 @@ export default class Contact extends Component {
 
           {item.category == "Friends" ? (
             <View style={[styles.categorybtn, { backgroundColor: 'rgba(215, 38, 61, 0.12)' }]}
-              //onPress={() => this.addButton(item.recordID)}
-              >
+            //onPress={() => this.addButton(item.recordID)}
+            >
               <Text style={[styles.subtitle, { color: '#D7263D' }]}>{item.category}</Text>
             </View>
           ) : null}
 
           {item.category == "Work" ? (
             <View style={[styles.categorybtn, { backgroundColor: 'rgba(249, 200, 1, 0.12)' }]}
-             // onPress={() => this.addButton(item.recordID)}
-              >
+            // onPress={() => this.addButton(item.recordID)}
+            >
               <Text style={[styles.subtitle, { color: '#F9C801' }]}>{item.category}</Text>
             </View>
           ) : null}
 
           {item.category == "Business" ? (
             <View style={[styles.categorybtn, { backgroundColor: 'rgba(76, 175, 80, 0.12)' }]}
-              //onPress={() => this.addButton(item.recordID)}
-              >
+            //onPress={() => this.addButton(item.recordID)}
+            >
               <Text style={[styles.subtitle, { color: '#4CAF50' }]}>{item.category}</Text>
             </View>
           ) : null}
 
-           {item.category !== "Business" && item.category !== "Work" && item.category !== "Friends" &&
-           item.category !== "" ? (
-            <View style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}
-             // onPress={() => this.addButton(item.recordID)}
+          {item.category !== "Business" && item.category !== "Work" && item.category !== "Friends" &&
+            item.category !== "" ? (
+              <View style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}
+              // onPress={() => this.addButton(item.recordID)}
               >
-              <Text style={[styles.subtitle, { color: '#536CBC' }]}>{item.category}</Text>
-            </View>
-          ) : null}
+                <Text style={[styles.subtitle, { color: '#536CBC' }]}>{item.category}</Text>
+              </View>
+            ) : null}
         </View>
       </View>
     )
   }
 
-  ListHeaderfiltered  = () => {
+  ListHeaderfiltered = () => {
     return (
       <View style={styles.header}>
         <Text style={[styles.subtitle, { marginLeft: 15 }]}>
@@ -184,13 +184,13 @@ export default class Contact extends Component {
 
   Sorting_func() {
     let contacts = this.props.contacts.ContactList_reducer.contacts
-   let contactsCopy = [...contacts];
+    let contactsCopy = [...contacts];
     let sortContact = contactsCopy.sort(
       (a, b) =>
         a.givenName.toLowerCase() > b.givenName.toLowerCase(),
     );
     //console.log('contactList', sortContact)
-    this.setState({sortContact:sortContact})
+    this.setState({ sortContact: sortContact })
   }
 
   componentDidMount() {
@@ -220,22 +220,22 @@ export default class Contact extends Component {
             </View>
           </View>
         </ImageBackground>
-        {this.props.contacts.filter_reducer.contacts.length==0 ? (
-        <FlatList
-          data={this.state.sortContact}
-          ListHeaderComponent={this.ListHeader()}
-          ItemSeparatorComponent={this.ItemSeparatorView}
-          renderItem={(item) => this.ItemView(item)}
-          keyExtractor={(item, index) => index.toString()}
-        />
-        ):
-        <FlatList
-          data={this.props.contacts.filter_reducer.contacts}
-          ListHeaderComponent={this.ListHeaderfiltered()}
-          ItemSeparatorComponent={this.ItemSeparatorView}
-          renderItem={(item) => this.ItemViewfiltered(item)}
-          keyExtractor={(item, index) => index.toString()}
-        />}
+        {this.props.contacts.filter_reducer.contacts.length == 0 ? (
+          <FlatList
+            data={this.state.sortContact}
+            ListHeaderComponent={this.ListHeader()}
+            ItemSeparatorComponent={this.ItemSeparatorView}
+            renderItem={(item) => this.ItemView(item)}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        ) :
+          <FlatList
+            data={this.props.contacts.filter_reducer.contacts}
+            ListHeaderComponent={this.ListHeaderfiltered()}
+            ItemSeparatorComponent={this.ItemSeparatorView}
+            renderItem={(item) => this.ItemViewfiltered(item)}
+            keyExtractor={(item, index) => index.toString()}
+          />}
 
         <View>
 
@@ -250,7 +250,7 @@ export default class Contact extends Component {
             <DialogContent style={styles.content}>
               <View style={styles.header}>
                 <Text style={styles.title}>ASSIGN CATEGORY</Text>
-                <TouchableOpacity onPress={() => { this.setState({ defaultAnimationDialog: false,selectedItems:[] }) }}>
+                <TouchableOpacity onPress={() => { this.setState({ defaultAnimationDialog: false, selectedItems: [] }) }}>
                   <Image source={require('../images/cancel.png')} style={styles.plus} />
                 </TouchableOpacity>
               </View>
@@ -272,20 +272,20 @@ export default class Contact extends Component {
               />
 
               <TouchableOpacity onPress={() => { this.addCategory() }} style={styles.button}>
-                 <View style={{flexDirection:'row'}}>
-              <Image source={require('../images/plus.png')} tintColor="#fff" style={[styles.plus,{marginTop:2}]} />
-                <Text style={styles.buttonText}>  Create a new category</Text>
+                <View style={{ flexDirection: 'row' }}>
+                  <Image source={require('../images/plus.png')} tintColor="#fff" style={[styles.plus, { marginTop: 2 }]} />
+                  <Text style={styles.buttonText}>  Create a new category</Text>
                 </View>
               </TouchableOpacity>
 
               <View style={styles.center}>
-              {this.state.selectedItems.length!=0?(
-                <TouchableOpacity onPress={() => {
-                  this.assign_category()
-                }} style={styles.assignbutton}>
-                  <Text style={styles.buttonText}>Assign</Text>
-                </TouchableOpacity>
-              ):null}
+                {this.state.selectedItems.length != 0 ? (
+                  <TouchableOpacity onPress={() => {
+                    this.assign_category()
+                  }} style={styles.assignbutton}>
+                    <Text style={styles.buttonText}>Assign</Text>
+                  </TouchableOpacity>
+                ) : null}
               </View>
             </DialogContent>
           </Dialog>
@@ -301,7 +301,7 @@ export default class Contact extends Component {
             <DialogContent style={styles.content}>
               <View style={[styles.header, { marginBottom: 20 }]}>
                 <Text style={styles.title}>ADD CATEGORY</Text>
-                <TouchableOpacity onPress={() => { this.setState({ defaultAnimationDialog2: false,selectedItems:[]  }) }}>
+                <TouchableOpacity onPress={() => { this.setState({ defaultAnimationDialog2: false, selectedItems: [] }) }}>
                   <Image source={require('../images/cancel.png')} style={styles.plus} />
                 </TouchableOpacity>
               </View>

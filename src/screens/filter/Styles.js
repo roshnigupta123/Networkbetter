@@ -65,11 +65,11 @@ export default styles = StyleSheet.create({
     buttonText: {
         color: '#fff',
         textAlign: 'center',
-        fontSize:fontsize.label,
+        fontSize: fontsize.label,
         fontFamily: fontfamily.regular
-      },
-      center:{
-          justifyContent:'center',
-          alignItems:'center'
-      }
+    },
+    center: {
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 })

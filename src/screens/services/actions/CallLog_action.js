@@ -37,12 +37,12 @@ export const permission_calls = () => {
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             CallLogs.loadAll().then((callLogs) => {
-              //  console.log('callLogs',callLogs[2])
+                //  console.log('callLogs',callLogs[2])
                 dispatch(callLogsListSuccess(callLogs))
             });
 
         } else {
-           // alert('Call Log permission denied');
+            // alert('Call Log permission denied');
             dispatch(callLogsListFailure())
         }
     }

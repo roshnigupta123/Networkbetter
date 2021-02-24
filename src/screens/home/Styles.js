@@ -11,155 +11,155 @@ export default styles = StyleSheet.create({
         padding: 20,
     },
     imagebg: {
-        flex:1 
+        flex: 1
     },
-    header:{
-       flexDirection:'row',
-       justifyContent:'space-between',
-       marginTop:15
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 15
     },
-    humbrgrmenu:{
-        width:20,
-        height:20
+    humbrgrmenu: {
+        width: 20,
+        height: 20
     },
-    center:{
-        justifyContent:'center',
-        alignItems:'center'
+    center: {
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    NWtxt:{
-        marginTop:40,
+    NWtxt: {
+        marginTop: 40,
         fontSize: fontsize.subheading,
         fontFamily: fontfamily.light,
-        color:'#fff',
+        color: '#fff',
     },
-    bettertxt:{
-        marginTop:40,
+    bettertxt: {
+        marginTop: 40,
         fontSize: fontsize.subheading,
         fontFamily: fontfamily.medium,
-        color:'#fff',
+        color: '#fff',
     },
-    cardsty:{
-        borderRadius:15
+    cardsty: {
+        borderRadius: 15
     },
     card: {
         borderRadius: 20,
         borderWidth: 1,
         borderColor: '#E8E8E8',
         backgroundColor: '#fff',
-        width:"100%",
-      height:"70%",
-      overflow: 'hidden',
-      elevation: 1,
-      },
-      cardfilter:{
+        width: "100%",
+        height: "70%",
+        overflow: 'hidden',
+        elevation: 1,
+    },
+    cardfilter: {
         overflow: 'hidden',
         borderColor: '#E8E8E8',
         backgroundColor: '#fff',
         borderWidth: 1,
         elevation: 1,
         borderRadius: 20,
-        height:"85%",
-        width:width - 40 ,
-        marginTop:"-15%",
-      },
-      blackCard:{
-          backgroundColor:'#3D3D3D',
-          padding:20,
-          position:'absolute',
-          bottom:10,
-          marginHorizontal:20,
-          borderRadius: 20,
-          width:"90%"
-      },
-      crdtext:{
-          fontFamily:fontfamily.regular,
-          fontSize: fontsize.label,
-          color:'#ccc',
-          textAlign:'center'
-      },
-      swipecrdsty:{
-          flexDirection:'row',
-          justifyContent:'space-between',
-          padding:20,
-          marginTop:10
-      },
-      title:{
-          fontSize: fontsize.title,
-          fontFamily: fontfamily.medium,
-      },
-      subtitle:{
+        height: "85%",
+        width: width - 40,
+        marginTop: "-15%",
+    },
+    blackCard: {
+        backgroundColor: '#3D3D3D',
+        padding: 20,
+        position: 'absolute',
+        bottom: 10,
+        marginHorizontal: 20,
+        borderRadius: 20,
+        width: "90%"
+    },
+    crdtext: {
+        fontFamily: fontfamily.regular,
+        fontSize: fontsize.label,
+        color: '#ccc',
+        textAlign: 'center'
+    },
+    swipecrdsty: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 20,
+        marginTop: 10
+    },
+    title: {
+        fontSize: fontsize.title,
+        fontFamily: fontfamily.medium,
+    },
+    subtitle: {
         fontSize: fontsize.label,
         fontFamily: fontfamily.light,
-        color:'#A7A7A7',
-      },
-      plusicon:{
-          width:40,
-          height:40,
-          borderRadius:40/2,
-          backgroundColor:'#fff',
-          elevation:5,
-          borderWidth:0.3,
-          borderColor:'#ccc',
-          justifyContent:'center',
-          alignItems:'center'
-      },
-      plus:{
-          width:15,
-          height:15,
+        color: '#A7A7A7',
+    },
+    plusicon: {
+        width: 40,
+        height: 40,
+        borderRadius: 40 / 2,
+        backgroundColor: '#fff',
+        elevation: 5,
+        borderWidth: 0.3,
+        borderColor: '#ccc',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    plus: {
+        width: 15,
+        height: 15,
         //   color:'#ccc'
-      },
-      row:{
-          flexDirection:'row',
-      },
-      button: {
- 
-      //  width: '90%',
+    },
+    row: {
+        flexDirection: 'row',
+    },
+    button: {
+
+        //  width: '90%',
         height: 40,
         padding: 10,
         backgroundColor: '#4CAF50',
-        justifyContent:'center',
-        alignItems:'center',
-        borderBottomLeftRadius:5,
-        borderBottomRightRadius:5
-      },
-      assignbutton:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5
+    },
+    assignbutton: {
         height: 40,
         padding: 10,
         backgroundColor: '#536CBC',
-        justifyContent:'center',
-        alignItems:'center',
-        width:100,
-        borderRadius:5,
-        marginTop:20
-      },
-      buttonText: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 100,
+        borderRadius: 5,
+        marginTop: 20
+    },
+    buttonText: {
         color: '#fff',
         textAlign: 'center',
-        fontSize:fontsize.label,
+        fontSize: fontsize.label,
         fontFamily: fontfamily.regular
-      },
-      textInputStyle:{
-          borderColor:'#ccc',
-          borderWidth:0.5,
-          height:45,
-          borderTopLeftRadius:5,
-          borderTopRightRadius:5,
-          padding:15,
-      },
-      itemsContainerStyle:{
-        borderColor:'#ccc',
-        borderWidth:0.5,
-        borderTopLeftRadius:5,
-        borderTopRightRadius:5,
-        maxHeight:200,
-        marginTop:5
-      },
-      categorybtn:{
-        backgroundColor:'#E5E5E5',
-        paddingHorizontal:15,
-        paddingVertical:2,
-        alignItems:'center',
-        justifyContent:'center',
-        borderRadius:45
+    },
+    textInputStyle: {
+        borderColor: '#ccc',
+        borderWidth: 0.5,
+        height: 45,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        padding: 15,
+    },
+    itemsContainerStyle: {
+        borderColor: '#ccc',
+        borderWidth: 0.5,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        maxHeight: 200,
+        marginTop: 5
+    },
+    categorybtn: {
+        backgroundColor: '#E5E5E5',
+        paddingHorizontal: 15,
+        paddingVertical: 2,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 45
     }
 })

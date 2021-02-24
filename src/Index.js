@@ -5,25 +5,25 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import Home from './screens/home/Home';
 
 const AppNavigator = createStackNavigator({
- 
-    Home: {
-      screen: Home,
-      navigationOptions: {
-        headerShown: false,
-      },
+
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      headerShown: false,
     },
-    Contact: {
-        screen: Main.Contact,
-        navigationOptions: {
-          headerShown: false,
-        },
-      }
+  },
+  Contact: {
+    screen: Main.Contact,
+    navigationOptions: {
+      headerShown: false,
+    },
+  }
 },
 )
 
 const Auth = createSwitchNavigator({
-    Splash: { screen: Main.Splash },
-    Stack: { screen: AppNavigator }
+  Splash: { screen: Main.Splash },
+  Stack: { screen: AppNavigator }
 })
 
 export default createAppContainer(Auth);
