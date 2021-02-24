@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import {contactPermission,contactListupdate,contactListRandom,contactListfilter} from "../services/actions/ContactList_action";
 import { categoryList } from "../services/actions/CategoryList_action";
 import Home from './Home';
+// import {contactListfilter} from '../services/actions/filter_action';
 
 const mapStateToProps=state=>({
     contacts: state

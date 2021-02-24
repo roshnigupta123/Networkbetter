@@ -9,24 +9,24 @@ import omit from 'lodash/omit'
 
 let blacklistTransform = createTransform(
   (inboundState, key) => {
-      if (key === 'contacts') {
-          return omit(inboundState, ['ContactList_reducer']);
-      } else {
-          return inboundState;
-      }
+    if (key === 'contacts') {
+      return omit(inboundState, ['ContactList_reducer']);
+    } else {
+      return inboundState;
+    }
   }
 )
 
 const persistConfig = {
   key: 'observeNow',
   storage: AsyncStorage,
-//  blacklist: ['ContactList_reducer'],
-transforms: [blacklistTransform],
+  blacklist: ['filter_reducer'],
+ // transforms: [blacklistTransform],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = createStore(
   persistedReducer,
-  composeWithDevTools(applyMiddleware(thunkMiddleware,logger))
+  composeWithDevTools(applyMiddleware(thunkMiddleware, logger))
 );
 const persistor = persistStore(store);
 export { store, persistor };

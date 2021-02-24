@@ -26,6 +26,10 @@ export default styles = StyleSheet.create({
          width:20,
          height:20,
      },
+     plus:{
+      width:15,
+      height:15,
+     },
      categorybtn:{
          backgroundColor:'#E5E5E5',
          paddingHorizontal:15,
@@ -46,12 +50,12 @@ export default styles = StyleSheet.create({
         borderColor:'#ccc',
         borderWidth:0.5,
         height:45,
-        borderRadius:5,
+        borderTopLeftRadius:5,
+        borderTopRightRadius:5,
         padding:15,
        
     },
     button: {
- 
         //  width: '90%',
           height: 40,
           padding: 10,

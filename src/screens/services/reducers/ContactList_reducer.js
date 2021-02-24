@@ -9,7 +9,8 @@ const initialState = {
   contacts: [],
   error: '',
   filterContact: [],
-  category: []
+  category: [],
+  
 }
 
 const ContactList_reducer = (state = initialState, action) => {
@@ -54,19 +55,13 @@ const ContactList_reducer = (state = initialState, action) => {
 
     }
 
-    case CONTACT_LIST_FILTER: {
-      console.log('CONTACT_LIST_FILTER', action.payload)
-      //   const newMainContact= state.contacts
-      //   const data = [...newMainContact]
-      //   var filtered_ids = _.filter(data, function (p) {
-      //   return _.includes(action.payload, p.category);
-      // });
-      // console.log('filtered_ids', filtered_ids)
-      return {
-        ...state,
-        contacts: action.payload.contacts, category: action.payload.category
-      }
-    }
+    // case CONTACT_LIST_FILTER: {
+    //   console.log('CONTACT_LIST_FILTER', action.payload)
+    //   return {
+    //     ...state,
+    //     contacts: action.payload.contacts, category: action.payload.category
+    //   }
+    // }
 
     case CONTACT_LIST_NOT_FILTER: {
       console.log('CONTACT_LIST_NOT_FILTER', action)

@@ -33,7 +33,7 @@ export default styles = StyleSheet.create({
     },
     box: {
         paddingVertical: 5,
-        backgroundColor: '#ccc',
+        backgroundColor: '#E5E5E5',
         height: 30,
         borderRadius: 3, margin: 5,
         paddingHorizontal: 10,
@@ -47,7 +47,7 @@ export default styles = StyleSheet.create({
     },
     activebox: {
         paddingVertical: 5,
-        backgroundColor: 'blue',
+        backgroundColor: '#536CBC',
         height: 30,
         borderRadius: 3, margin: 5,
         paddingHorizontal: 10,

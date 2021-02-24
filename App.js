@@ -30,7 +30,7 @@ const dashboardStack = createDrawerNavigator({
 
 }, {
   contentComponent: Sidebarcontainer,
-  drawerWidth: Dimensions.get('window').width - 100,
+  drawerWidth: Dimensions.get('window').width - 55,
   drawerPosition: 'right'
 },
 )

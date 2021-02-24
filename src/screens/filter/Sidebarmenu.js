@@ -62,7 +62,6 @@ export default class Sidebarmenu extends Component {
     console.log('tempcategory', this.state.tempcategory)
     this.props.contactListfilter(this.props.category.ContactList_reducer.contacts, this.state.tempcategory,
       this.props.category.ContactList_reducer.filterContact)
-
   }
 
   clear_filter() {
@@ -75,7 +74,7 @@ export default class Sidebarmenu extends Component {
 
     this.props.contactListfilter(this.props.category.ContactList_reducer.contacts,tempcategory,
     this.props.category.ContactList_reducer.filterContact)
-    console.log('daat',this.state.tempcategory)
+    console.log('tempcategory',tempcategory)
   }
 
   UNSAFE_componentWillMount(){
@@ -88,7 +87,7 @@ export default class Sidebarmenu extends Component {
         <View style={styles.activebox}
           // onPress={() => { this.uncheckbox(index, item.status) }}
           >
-          <Text style={styles.boxtext}>{item.name}</Text>
+          <Text style={styles.boxtext} numberOfLines={1}>{item.name}</Text>
         </View>
       )
     }
@@ -97,7 +96,7 @@ export default class Sidebarmenu extends Component {
       return (
         <TouchableOpacity style={styles.box}
           onPress={() => { this.box(index, item.status) }}>
-          <Text style={[styles.boxtext, { color: '#000' }]}>{item.name}</Text>
+          <Text style={[styles.boxtext, { color: '#A7A7A7' }]} numberOfLines={1}>{item.name}</Text>
         </TouchableOpacity>
       )
     }

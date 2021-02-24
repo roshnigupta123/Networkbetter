@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { categoryList } from "../services/actions/CategoryList_action";
 import Sidebarmenu from './Sidebarmenu'
-import {contactListfilter, contactListnotfilter, contactPermission} from '../services/actions/ContactList_action';
+import {contactListfilter} from '../services/actions/filter_action';
 
 const mapStateToProps=state=>({
     category: state,
@@ -10,7 +10,7 @@ const mapStateToProps=state=>({
   const mapDispatchToProps=dispatch=>({
     categoryList: data=>dispatch(categoryList(data)),
     contactListfilter: (data,category,filterContact)=>dispatch(contactListfilter(data,category,filterContact)),
-    contactListnotfilter: data=>dispatch(contactListnotfilter(data)),
+  //  contactListnotfilter: data=>dispatch(contactListnotfilter(data)),
     // contactPermission: data=>dispatch(contactPermission(data)),
   })
   
