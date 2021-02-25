@@ -379,7 +379,7 @@ class Home extends Component {
             </View>
 
             {this.props.contacts.filter_reducer.contacts.length == 0 ?
-              this.props.contacts.ContactList_reducer.contacts.length != 0 ? (
+           this.props.contacts.ContactList_reducer.contacts.length != 0 ? ( 
                 <Swiper
                   cardsData={this.props.contacts.ContactList_reducer.contacts}
                   renderCard={this.renderCard}
@@ -393,13 +393,13 @@ class Home extends Component {
                   }}
                   style={styles.card}
                 />
-              ) :
+               ) :
                 (
                   <View style={[styles.center, { flex: 1 }]}>
                     <Text style={styles.subtitle}>Contacts not found</Text>
                   </View>
                 ) :
-              <SwipeCards
+               <SwipeCards
                 cards={this.props.contacts.filter_reducer.contacts}
                 loop={true}
                 renderCard={this.renderCardfilter}
@@ -407,7 +407,7 @@ class Home extends Component {
                 showNope={false}
                 onClickHandler={() => console.log('hii')}
               />
-            }
+            } 
           </View>
         </ImageBackground>
 

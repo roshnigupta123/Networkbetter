@@ -11,7 +11,7 @@ class Splash extends Component {
         console.log('spalsh', this.props.contactListfilter)
         let ContactList = this.props.contacts.ContactList_reducer.contacts
         //console.log('spalsh', ContactList.length)
-        if (ContactList.length == 0 || ContactList.length == undefined) {
+        if (ContactList.length == 0 ) {
             this.props.contactPermission();
             // this.props.permission_calls();
             // console.log('splash screen', ContactList.length )

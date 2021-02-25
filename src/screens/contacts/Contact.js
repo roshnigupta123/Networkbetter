@@ -3,6 +3,7 @@ import { View, Text, FlatList, Image, ImageBackground, TouchableOpacity, Activit
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import styles from './Styles';
+import { SearchBar } from 'react-native-elements';
 
 var _ = require('lodash');
 const image = require('../images/Header.png');
@@ -10,13 +11,15 @@ const image = require('../images/Header.png');
 export default class Contact extends Component {
   constructor(props) {
     super(props)
+    this.array = []
     this.state = {
       defaultAnimationDialog: false,
       defaultAnimationDialog2: false,
       index: '',
       selectedItems: [],
       sortContact: [],
-      textInput_Holder: ''
+      textInput_Holder: '',
+      search: ''
     }
   }
 
@@ -112,12 +115,36 @@ export default class Contact extends Component {
 
   ListHeader = () => {
     return (
-      <View style={styles.header}>
-        <Text style={[styles.subtitle, { marginLeft: 15 }]}>
-          {this.props.contacts.ContactList_reducer.contacts.length} contact found
+      <View style={{ flex: 1 }}>
+        <View style={styles.header}>
+          <Text style={[styles.subtitle, { marginLeft: 15 }]}>
+            {this.state.sortContact.length} contact found
         </Text>
+        </View>
+        <View style={styles.inputcontainer}>
+         <SearchBar
+          round
+          searchIcon={{size: 24}}
+          onChangeText={(text) => this.searchFilterFunction(text)}
+          placeholder="Search contact"
+          value={this.state.search}
+          containerStyle={styles.containerStyle}
+          inputContainerStyle = {styles.inputContainerStyle}
+        />
+        </View>
       </View>
     );
+  };
+
+  searchFilterFunction = text => {
+    this.setState({ search: text })
+    const newData = this.array.filter(item => {
+      const itemData = item.displayName ? item.displayName.toUpperCase() : ''.toUpperCase();
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+
+    this.setState({ sortContact: newData });
   };
 
   ItemViewfiltered = ({ item, index }) => {
@@ -180,8 +207,6 @@ export default class Contact extends Component {
     );
   };
 
-
-
   Sorting_func() {
     let contacts = this.props.contacts.ContactList_reducer.contacts
     let contactsCopy = [...contacts];
@@ -190,12 +215,14 @@ export default class Contact extends Component {
         a.givenName.toLowerCase() > b.givenName.toLowerCase(),
     );
     //console.log('contactList', sortContact)
+    this.array = sortContact
     this.setState({ sortContact: sortContact })
   }
 
   componentDidMount() {
     console.log('contact screen', this.props.contacts.ContactList_reducer.contacts.length)
     this.Sorting_func();
+
   }
 
 

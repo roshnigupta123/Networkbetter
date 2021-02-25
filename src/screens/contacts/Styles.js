@@ -3,7 +3,8 @@ import { fontsize, colors, fontfamily } from '../globalstyles/Styles';
 
 export default styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor:'#fff'
   },
   content: {
     padding: 20
@@ -53,7 +54,11 @@ export default styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     padding: 15,
-
+    fontSize:fontsize.label,
+   
+  },
+  inputcontainer:{
+   margin:10
   },
   button: {
     //  width: '90%',
@@ -85,4 +90,18 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  containerStyle:{
+    backgroundColor:"transparent",
+    borderTopWidth:0,
+    borderBottomWidth:0,
+   
+  },
+  inputContainerStyle:{
+    backgroundColor:"transparent",
+    borderWidth:1,
+    borderBottomWidth:1,
+    borderColor: '#ccc',
+    borderRadius:45,
+    height:45
+  }
 })
