@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import { View, Text, ImageBackground, StatusBar, Image, Button, TouchableOpacity } from "react-native";
 import styles from "./Styles";
+import * as Animatable from 'react-native-animatable';
 
 const image = require('../images/Group1.png');
 
 class Splash extends Component {
 
     componentDidMount() {
-
-        console.log('spalsh', this.props.contactListfilter)
+        console.log('spalsh')
         let ContactList = this.props.contacts.ContactList_reducer.contacts
         //console.log('spalsh', ContactList.length)
-        if (ContactList.length == 0 ) {
+        if (ContactList.length == 0) {
             this.props.contactPermission();
-            // this.props.permission_calls();
-            // console.log('splash screen', ContactList.length )
         }
-
-        // this.props.permission_calls();
-        // alert(this.props.contacts.ContactList_reducer.filterContact)
-
     }
 
     render() {
@@ -36,12 +30,23 @@ class Splash extends Component {
                             </View>
 
                             <View style={styles.center}>
-                                <Image source={require('../images/arrow.png')} style={styles.arrow} />
-                                <TouchableOpacity style={styles.circle1} onPress={() => { this.props.navigation.navigate('Home') }} >
-                                    <TouchableOpacity style={styles.circle2} onPress={() => { this.props.navigation.navigate('Home') }} >
-                                        <Text style={[styles.hitxt]}>Hit me</Text>
+                                <Animatable.View
+                                    animation="bounceIn"
+                                    iterationCount='infinite'
+                                    style={styles.logo}>
+                                    <Image source={require('../images/arrow.png')} style={styles.arrow} />
+                                </Animatable.View>
+                                <Animatable.View
+                                    animation="pulse"
+
+                                    iterationCount='infinite'
+                                    style={styles.logo}>
+                                    <TouchableOpacity style={styles.circle1} onPress={() => { this.props.navigation.navigate('Home') }} >
+                                        <TouchableOpacity style={styles.circle2} onPress={() => { this.props.navigation.navigate('Home') }} >
+                                            <Text style={[styles.hitxt]}>Hit me</Text>
+                                        </TouchableOpacity>
                                     </TouchableOpacity>
-                                </TouchableOpacity>
+                                </Animatable.View>
                                 <Text style={[styles.suggestion]}>for a suggestion</Text>
                             </View>
                         </View>
