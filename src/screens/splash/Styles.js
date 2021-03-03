@@ -46,7 +46,9 @@ export default styles = StyleSheet.create({
         backgroundColor: colors.warning,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 10
+        marginBottom: 10,
+        overflow:'hidden',
+        elevation:10
     },
     circle2: {
         width: 80,
@@ -55,7 +57,8 @@ export default styles = StyleSheet.create({
         backgroundColor: '#F8D751',
         zIndex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow:'hidden'
     },
     center: {
         justifyContent: 'center',

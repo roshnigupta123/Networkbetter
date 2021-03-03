@@ -43,7 +43,7 @@ const ContactList_reducer = (state = initialState, action) => {
       }
 
     case CONTACT_LIST_UPDATE: {
-      console.log('CONTACT_LIST_UPDATEreducer', action)
+    //  console.log('CONTACT_LIST_UPDATEreducer', action)
       let data = state.contacts
       let index = data.findIndex(el => el.recordID === action.id);
       data[index] = { ...data[index], category: action.payload };
@@ -64,7 +64,7 @@ const ContactList_reducer = (state = initialState, action) => {
     // }
 
     case CONTACT_LIST_NOT_FILTER: {
-      console.log('CONTACT_LIST_NOT_FILTER', action)
+     // console.log('CONTACT_LIST_NOT_FILTER', action)
       return {
         ...state,
         contacts: action.payload,

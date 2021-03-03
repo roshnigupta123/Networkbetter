@@ -2,7 +2,7 @@ import { CONTACT_LIST_FILTER } from '../Constant';
 var _ = require('lodash');
 
 export const contactListfilter = (contacts, categorys, filterContact) => {
-    console.log("action CONTACT_LIST_FILTER:", contacts, categorys, 'filterContact', filterContact)
+  //  console.log("action CONTACT_LIST_FILTER:", contacts, categorys, 'filterContact', filterContact)
     return {
         type: CONTACT_LIST_FILTER,
         payload: {

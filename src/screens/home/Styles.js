@@ -63,18 +63,19 @@ export default styles = StyleSheet.create({
         marginTop: "-15%",
     },
     blackCard: {
-        backgroundColor: '#3D3D3D',
-        padding: 20,
+         backgroundColor: '#3D3D3D',
+        padding: 10,
         position: 'absolute',
-        bottom: 10,
+        bottom: 15,
         marginHorizontal: 20,
         borderRadius: 20,
-        width: "90%"
+         width: "90%"
+        
     },
     crdtext: {
         fontFamily: fontfamily.regular,
         fontSize: fontsize.label,
-        color: '#ccc',
+        color: '#fff',
         textAlign: 'center'
     },
     swipecrdsty: {
@@ -106,7 +107,7 @@ export default styles = StyleSheet.create({
     plus: {
         width: 15,
         height: 15,
-        //   color:'#ccc'
+    //    color:'#A7A7A7'
     },
     row: {
         flexDirection: 'row',
@@ -145,6 +146,7 @@ export default styles = StyleSheet.create({
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
         padding: 15,
+        fontSize:fontsize.label,
     },
     itemsContainerStyle: {
         borderColor: '#ccc',
@@ -161,5 +163,31 @@ export default styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 45
-    }
+    },
+    circle1: {
+        width: 100,
+        height: 100,
+        borderRadius: 100 / 2,
+        backgroundColor: colors.warning,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+        overflow:'hidden',
+        elevation:10
+    },
+    circle2: {
+        width: 80,
+        height: 80,
+        borderRadius: 80 / 2,
+        backgroundColor: '#F8D751',
+        zIndex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow:'hidden'
+    },
+    hitxt: {
+        fontSize: fontsize.title,
+        fontFamily: fontfamily.bold,
+        color: '#000',
+    },
 })

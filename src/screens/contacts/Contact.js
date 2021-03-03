@@ -117,7 +117,7 @@ export default class Contact extends Component {
     return (
       <View style={{ flex: 1 }}>
         <View style={styles.header}>
-          <Text style={[styles.subtitle, { marginLeft: 15 }]}>
+          <Text style={[styles.subtitle, { marginLeft: 15,color: '#A7A7A7'  }]}>
             {this.state.sortContact.length} contact found
         </Text>
         </View>
@@ -130,6 +130,7 @@ export default class Contact extends Component {
           value={this.state.search}
           containerStyle={styles.containerStyle}
           inputContainerStyle = {styles.inputContainerStyle}
+          inputStyle={styles.inputStyle}
         />
         </View>
       </View>
@@ -242,7 +243,7 @@ export default class Contact extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
-                <Image source={require('../images/filter.png')} style={styles.img} tintColor="#fff" />
+                <Image source={require('../images/filter_icon.png')} tintColor="#fff" />
               </TouchableOpacity>
             </View>
           </View>

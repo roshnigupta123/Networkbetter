@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import Swiper from 'react-native-realistic-deck-swiper'
 import SwipeCards from 'react-native-swipe-cards';
-import {
+import { Pressable,
   Alert, TouchableOpacity, Text, View, ImageBackground, StatusBar, Image, Linking, ScrollView, TextInput, BackHandler,
 } from 'react-native'
 import styles from "./Styles";
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import call from 'react-native-phone-call';
+import * as Animatable from 'react-native-animatable';
+var _ = require('lodash');
 
 const image = require('../images/Group2.png');
 
@@ -103,71 +105,85 @@ class Home extends Component {
 
     //  let number = ["070240 91890", "070240 91890", "90986 38200", "07024091890"]
 
-    if (number != undefined) {
-      var i = 0
-      var str = number;
-      var strLength = str.length;
-      for (i; i < strLength; i++) {
-        str = str.toString().replace("-", " ").split(",")
-        str = str.toString().replace(/\s+/g, "").split(",")
-      }
-      let uni = str
-      if (uni != false) {
-        let u = uni.filter((v, i, a) => a.indexOf(v) === i)
-        this.setState({ number: u, value: u[0] });
-        console.log('unique', u);
-        this.setState({ number: u })
-      } else {
-        console.log('empty number array')
-      }
-    }
+    // if (number != undefined) {
+    //   var i = 0
+    //   var str = number;
+    //   var strLength = str.length;
+    //   for (i; i < strLength; i++) {
+    //     str = str.toString().replace("-", " ").split(",")
+    //     str = str.toString().replace(/\s+/g, "").split(",")
+    //   }
+    //   let uni = str
+    //   if (uni != false) {
+    //     let u = uni.filter((v, i, a) => a.indexOf(v) === i)
+    //     this.setState({ number: u, value: u[0] });
+    //     console.log('unique', u);
+    //     this.setState({ number: u })
+    //   } else {
+    //     console.log('empty number array')
+    //   }
+    // }
+
+    var result1 =  this.props.contacts.CallLog_reducer.callLogs
+    var result2 = phoneNumbers
+
+    let result = result1.filter(o1 => result2.some(o2 => o1.phoneNumber === o2.number));
+    console.log('result',result)
   }
 
-  //---------------------------------hardwareBackPress button------------------------------------
-
-  componentWillUnmount() {
-    //   BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
-  }
-
-  onBackPress = () => {
-    Alert.alert(
-      ' Network better ',
-      ' Do you want to exit ?',
-      [
-        {
-          text: 'Yes', onPress: () => BackHandler.exitApp(
-            this.props.contactListfilter(this.props.contacts.ContactList_reducer.contacts, [],
-              this.props.contacts.ContactList_reducer.filterContact)
-          )
-        },
-        { text: 'No', onPress: () => console.log('NO Pressed') }
-      ],
-      { cancelable: true },
-    );
-    return true;
-  }
-
+ 
   //------------------------------------------------------------------
   onSwiped = () => {
     this.ChangeColorFunction();
   }
+
+  getParsedDate(strDate) {
+    console.log('strDate', strDate)
+    this.setState({ dateTime: strDate })
+    var strSplitDate = String(strDate).split(' ');
+    console.log('strSplitDate', strSplitDate)
+    var newDate = new Date(strSplitDate[0]);
+    console.log('newDate', newDate)
+
+    var one_day = 1000 * 60 * 60 * 24
+    var present_date = new Date(newDate);
+
+    var christmas_day = new Date()
+
+    var Result = Math.round(christmas_day.getTime() - present_date.getTime()) / (one_day);
+    var Final_Result = Result.toFixed(0)
+    //  alert(Final_Result)
+    // console.log('Final_Result', Final_Result)
+    // if (Final_Result == 0) {
+    //   this.setState({ date: newDate });
+    // } else {
+    //   this.setState({ diffInDays: Final_Result });
+    // }
+
+    return Final_Result;
+  }
+
   renderCard = (card) => {
-    //  console.log('card list', card)
+      console.log('card list', card.dateTime)
     if (card !== undefined || card != null) {
       return (
-
         <View style={{ flex: 1 }}>
 
           <View style={styles.swipecrdsty}>
             <View>
-              <Text style={styles.title}>{card.displayName}</Text>
+            <Text style={[styles.title,{textTransform:'uppercase',letterSpacing:1}]}
+            numberOfLines={1} adjustsFontSizeToFit >{card.displayName}</Text>
+            {card.dateTime != undefined ?(
+            <Text style={styles.subtitle}  numberOfLines={1} adjustsFontSizeToFit
+            >last connected on {card.dateTime}</Text>
+            ):<Text style={styles.subtitle}  numberOfLines={1} adjustsFontSizeToFit
+            >You never called this person</Text>}
             </View>
 
             <View>
-
               {card.category == "" ? (
                 <TouchableOpacity onPress={() => { this.onPress_plus(card.category, card.recordID) }} style={styles.plusicon}>
-                  <Image source={require('../images/plus.png')} style={styles.plus} />
+                  <Image source={require('../images/plus.png')} style={styles.plus} tintColor='#A7A7A7' />
                 </TouchableOpacity>
               ) : null}
 
@@ -213,7 +229,7 @@ class Home extends Component {
 
                   <View style={styles.row}>
                     <TouchableOpacity onPress={() => this.triggerCall(numberData.number)}>
-                      <Image source={require('../images/call.png')} style={[styles.plus, { marginRight: 15 }]} />
+                      <Image source={require('../images/call.png')} style={[styles.plus, { marginRight: 20 }]} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.initiateWhatsApp(numberData.number)}>
                       <Image source={require('../images/whatsapp.png')} style={[styles.humbrgrmenu]} />
@@ -224,9 +240,7 @@ class Home extends Component {
               }
             )
           }
-
         </View>
-
       )
     }
   };
@@ -239,14 +253,15 @@ class Home extends Component {
         <View style={[styles.cardfilter]}>
           <View style={styles.swipecrdsty}>
             <View>
-              <Text style={styles.title}>{card.displayName}</Text>
+              <Text style={[styles.title,{textTransform:'uppercase'}]}>{card.displayName}</Text>
             </View>
+          
             <View>
               {card.category == "" ? (
                 <View
                   //onPress={() => { this.onPress_plus(card.category, card.recordID) }} 
                   style={styles.plusicon}>
-                  <Image source={require('../images/plus.png')} style={styles.plus} />
+                  <Image source={require('../images/plus.png')} style={styles.plus} tintColor="#A7A7A7" />
                 </View>
               ) : null}
 
@@ -296,7 +311,7 @@ class Home extends Component {
 
                   <View style={styles.row}>
                     <TouchableOpacity onPress={() => this.triggerCall(numberData.number)} >
-                      <Image source={require('../images/call.png')} style={[styles.plus, { marginRight: 15 }]} />
+                      <Image source={require('../images/call.png')} style={[styles.plus, { marginRight: 20 }]} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.initiateWhatsApp(numberData.number)} >
                       <Image source={require('../images/whatsapp.png')} style={[styles.humbrgrmenu]} />
@@ -313,11 +328,6 @@ class Home extends Component {
     }
   };
 
-  handleNope(card) {
-    console.log(`Nope for ${card}`)
-    return true;
-  }
-
   joinData = () => {
     if (this.state.textInput_Holder != "") {
       this.props.categoryList(this.state.textInput_Holder)
@@ -332,22 +342,53 @@ class Home extends Component {
 
   UNSAFE_componentWillMount() {
     this.generateRandomContact();
-
-    //  BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
   }
 
   componentDidMount() {
-    // console.log('this.props home', this.props.contacts.filter_reducer.contacts)
+ //   this.getParsedDate('21-May-2020 4:47:31 pm')
+   //  console.log('this.props home', this.props.contacts.CallLog_reducer.callLogs)
+
+    //  let collLogs_array= [
+    //   {"dateTime": "Feb 19, 2021 3:58:53 PM", "duration": 2,
+    //    "name": "Sonu", "phoneNumber": "+919999999999", "rawType": 2,
+    //    "timestamp": "1613730533000", "type": "OUTGOING"}, 
+      
+    //    {"dateTime": "Feb 11, 2021 4:46:24 PM", "duration": 59, 
+    //   "name": "Monu", "phoneNumber": "+918888888888", "rawType": 2, 
+    //   "timestamp": "1613042184525", "type": "OUTGOING"}, 
+      
+    //   ]
+      
+    // let  contact_array=[
+    //   {category: "", displayName: "Sonu", givenName: "Sonu",
+    //   phoneNumbers: [+919999999999,+915555555555]},
+      
+    //   {category: "", displayName: "Monu", givenName: "Monu",
+    //   phoneNumbers: [+918888888888,+914444444444]},
+
+    //   {category: "", displayName: "Tinky", givenName: "Tinky",
+    //   phoneNumbers: [+918888888890,+914444444444]}
+    //   ]
+
+    //  var merged = _.map(contact_array, function(item) {
+    //   return _.assign(item, _.find(collLogs_array, ['name', item.displayName]));
+    // });
+    // console.log('merged',merged)
   }
 
   generateRandomContact() {
+    let collLogs = this.props.contacts.CallLog_reducer.callLogs
     let contactList = this.props.contacts.ContactList_reducer.contacts;
 
+    var merged = _.map(contactList, function(item) {
+      return _.assign(item, _.find(collLogs, ['name', item.displayName]));
+    });
+
     let RandomContactArray = []
-    while (contactList.length !== 0) {
-      let randomIndex = Math.floor(Math.random() * contactList.length);
-      RandomContactArray.push(contactList[randomIndex]);
-      contactList.splice(randomIndex, 1)
+    while (merged.length !== 0) {
+      let randomIndex = Math.floor(Math.random() * merged.length);
+      RandomContactArray.push(merged[randomIndex]);
+      merged.splice(randomIndex, 1)
     }
     console.log('contactList', contactList.length)
 
@@ -369,7 +410,7 @@ class Home extends Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
-                  <Image source={require('../images/filter.png')} style={styles.humbrgrmenu} tintColor="#fff" />
+                  <Image source={require('../images/filter_icon.png')}  tintColor="#fff" />
                 </TouchableOpacity>
               </View>
 
@@ -380,7 +421,10 @@ class Home extends Component {
 
             {this.props.contacts.filter_reducer.contacts.length == 0 ?
            this.props.contacts.ContactList_reducer.contacts.length != 0 ? ( 
-                <Swiper
+                <Swiper 
+                ref={swiper => {
+                  this.swiper = swiper
+                }}
                   cardsData={this.props.contacts.ContactList_reducer.contacts}
                   renderCard={this.renderCard}
                   onSwiped={this.onSwiped}
@@ -392,11 +436,12 @@ class Home extends Component {
                     margin: 20
                   }}
                   style={styles.card}
+                  onSwipeStart={()=>console.log('kk')}
                 />
                ) :
                 (
                   <View style={[styles.center, { flex: 1 }]}>
-                    <Text style={styles.subtitle}>Contacts not found</Text>
+                    <Text style={styles.subtitle}>No data to display</Text>
                   </View>
                 ) :
                <SwipeCards
@@ -410,10 +455,12 @@ class Home extends Component {
             } 
           </View>
         </ImageBackground>
-
+        <View style={styles.center}>
         <View style={styles.blackCard}>
           <Text style={styles.crdtext}>
-            “We value your privacy, this is an offline application. We don't store anything on our servers“</Text>
+            “We value your privacy, this is an offline application. We don't store anything on our servers“
+            </Text>
+          </View>
         </View>
         <View>
 

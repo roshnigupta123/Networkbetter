@@ -103,5 +103,10 @@ export default styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius:45,
     height:45
+  },
+  inputStyle:{
+    color:'#000',
+     fontSize:15,
+    // fontFamily: fontfamily.regular
   }
 })

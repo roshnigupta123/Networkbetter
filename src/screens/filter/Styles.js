@@ -13,7 +13,7 @@ export default styles = StyleSheet.create({
     },
     heading: {
         fontFamily: fontfamily.medium,
-        fontSize: fontsize.subheading
+        fontSize: fontsize.title
     },
     header: {
         flexDirection: 'row',
@@ -24,18 +24,19 @@ export default styles = StyleSheet.create({
         width: 15, height: 15
     },
     border: {
-        height: 0.7,
-        backgroundColor: '#ccc', marginBottom: 15
+        height: 1.3,
+        backgroundColor: '#ccc', marginBottom: 20,marginTop:20
     },
     title: {
         fontSize: fontsize.label,
-        fontFamily: fontfamily.medium
+        fontFamily: fontfamily.medium,
+        marginBottom:15
     },
     box: {
         paddingVertical: 5,
         backgroundColor: '#E5E5E5',
         height: 30,
-        borderRadius: 3, margin: 5,
+        borderRadius: 3, marginRight: 10,marginBottom:10,
         paddingHorizontal: 10,
 
     },
@@ -60,7 +61,19 @@ export default styles = StyleSheet.create({
         alignItems: 'center',
         width: 100,
         borderRadius: 5,
-        marginTop: 20
+        marginTop: 20,
+        marginRight:10
+    },
+    disabledbtn:{
+        height: 40,
+        padding: 10,
+        backgroundColor: '#E5E5E5',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 100,
+        borderRadius: 5,
+        marginTop: 20,
+        marginRight:10
     },
     buttonText: {
         color: '#fff',
@@ -68,8 +81,17 @@ export default styles = StyleSheet.create({
         fontSize: fontsize.label,
         fontFamily: fontfamily.regular
     },
+    boxtextdis:{
+        color: '#A7A7A7',
+        textAlign: 'center',
+        fontSize: fontsize.label,
+        fontFamily: fontfamily.regular
+    },
     center: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    row:{
+        flexDirection:'row',
     }
 })

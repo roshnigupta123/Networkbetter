@@ -4,7 +4,8 @@ const initialState = {
   loading: false,
   callLogs: [],
   error: '',
-  mylogs: []
+  mylogs: [],
+  status: false
 }
 
 const CallLog_reducer = (state = initialState, action) => {
@@ -19,7 +20,8 @@ const CallLog_reducer = (state = initialState, action) => {
         loading: false,
         callLogs: action.payload,
         mylogs: action.payload,
-        error: ''
+        error: '',
+        status: true
       }
     case CallLogs_LIST_FAILURE:
       return {

@@ -10,7 +10,8 @@ export default class Sidebarmenu extends Component {
     this.state = {
       activebox: false,
       data: [],
-      tempcategory: []
+      tempcategory: [],
+      disabled: true
     }
   }
 
@@ -21,7 +22,7 @@ export default class Sidebarmenu extends Component {
 
   box(index, status) {
     console.log('index', index)
-    this.setState({ activebox: true });
+    this.setState({ activebox: true, disabled: false });
     let data = this.props.category.CategoryList_reducer.name
     data[index].status = true
     this.setState({ data })
@@ -44,6 +45,8 @@ export default class Sidebarmenu extends Component {
     }
     console.log('cate', tempcategory)
     this.setState({ tempcategory })
+    // this.props.contactListfilter(this.props.category.ContactList_reducer.contacts, tempcategory,
+    //   this.props.category.ContactList_reducer.filterContact)
   }
 
   uncheckbox(index, status) {
@@ -75,6 +78,7 @@ export default class Sidebarmenu extends Component {
     this.props.contactListfilter(this.props.category.ContactList_reducer.contacts, tempcategory,
       this.props.category.ContactList_reducer.filterContact)
     console.log('tempcategory', tempcategory)
+    this.setState({disabled:true})
   }
 
   UNSAFE_componentWillMount() {
@@ -108,14 +112,14 @@ export default class Sidebarmenu extends Component {
       <View style={styles.container}>
         <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={styles.heading}>Filter</Text>
+            <Text style={styles.heading}>FILTER</Text>
             <TouchableOpacity onPress={() => this.props.navigation.closeDrawer()}>
               <Image source={require('../images/cancel.png')} style={styles.plus} />
             </TouchableOpacity>
           </View>
           <View style={styles.border} />
           <View>
-            <Text style={styles.title}>what are you looking for</Text>
+            <Text style={styles.title}>What are you looking for</Text>
             <FlatList
               data={data}
               renderItem={(item) => this.ItemView(item)}
@@ -124,14 +128,17 @@ export default class Sidebarmenu extends Component {
             />
           </View>
 
-          <View style={styles.center}>
+            <View style={styles.row}>
+          {/* <View style={styles.center}> */}
             <TouchableOpacity style={styles.filterbtn} onPress={() => this.onPress_filter()} >
               <Text style={styles.buttonText}>Filter</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.filterbtn} onPress={() => this.clear_filter()} >
-              <Text style={styles.buttonText}>Clear</Text>
+            <TouchableOpacity style={this.state.disabled ? styles.disabledbtn : styles.filterbtn} onPress={() => this.clear_filter()}
+             disabled={this.state.disabled}>
+              <Text style={this.state.disabled ? styles.boxtextdis : styles.buttonText}>Clear</Text>
             </TouchableOpacity>
+          {/* </View> */}
           </View>
         </View>
       </View>

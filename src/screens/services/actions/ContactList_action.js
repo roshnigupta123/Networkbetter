@@ -28,7 +28,7 @@ export const contactListFailure = error => {
 }
 
 export const contactListupdate = (contacts, id) => {
-    console.log("action contactListupdate:")
+  //  console.log("action contactListupdate:")
     return {
         type: CONTACT_LIST_UPDATE,
         payload: contacts,
@@ -37,7 +37,7 @@ export const contactListupdate = (contacts, id) => {
 }
 
 export const contactListRandom = (contacts) => {
-    console.log("action contactListRandom:", contacts)
+  //  console.log("action contactListRandom:", contacts)
     return {
         type: CONTACT_LIST_AddNEW,
         payload: contacts
@@ -58,7 +58,7 @@ export const contactListRandom = (contacts) => {
 // }
 
 export const contactListnotfilter = (contacts) => {
-    console.log("action contactListnotfilter:")
+  //  console.log("action contactListnotfilter:")
     return {
         type: CONTACT_LIST_NOT_FILTER,
         payload: contacts
