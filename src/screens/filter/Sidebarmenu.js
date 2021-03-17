@@ -45,8 +45,6 @@ export default class Sidebarmenu extends Component {
     }
     console.log('cate', tempcategory)
     this.setState({ tempcategory })
-    // this.props.contactListfilter(this.props.category.ContactList_reducer.contacts, tempcategory,
-    //   this.props.category.ContactList_reducer.filterContact)
   }
 
   uncheckbox(index, status) {
@@ -57,8 +55,6 @@ export default class Sidebarmenu extends Component {
     this.setState({ data })
     console.log('data', data)
     this.filter_contactList()
-    // this.props.contactListfilter(this.props.category.ContactList_reducer.contacts, this.state.tempcategory)
-
   }
 
   onPress_filter() {
@@ -88,9 +84,7 @@ export default class Sidebarmenu extends Component {
   ItemView = ({ item, index }) => {
     if (item.status == true) {
       return (
-        <View style={styles.activebox}
-        // onPress={() => { this.uncheckbox(index, item.status) }}
-        >
+        <View style={styles.activebox}>
           <Text style={styles.boxtext} numberOfLines={1}>{item.name}</Text>
         </View>
       )
@@ -129,7 +123,6 @@ export default class Sidebarmenu extends Component {
           </View>
 
             <View style={styles.row}>
-          {/* <View style={styles.center}> */}
             <TouchableOpacity style={styles.filterbtn} onPress={() => this.onPress_filter()} >
               <Text style={styles.buttonText}>Filter</Text>
             </TouchableOpacity>
@@ -138,7 +131,6 @@ export default class Sidebarmenu extends Component {
              disabled={this.state.disabled}>
               <Text style={this.state.disabled ? styles.boxtextdis : styles.buttonText}>Clear</Text>
             </TouchableOpacity>
-          {/* </View> */}
           </View>
         </View>
       </View>

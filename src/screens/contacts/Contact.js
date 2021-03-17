@@ -48,7 +48,6 @@ export default class Contact extends Component {
     if (this.state.textInput_Holder != "") {
       this.props.categoryList(this.state.textInput_Holder)
       this.setState({ assign_category: '', textInput_Holder: '' })
-      // this.props.CategoryList_reducer.push({ name: this.state.textInput_Holder });
       console.log("arrr item", this.props.contacts.CategoryList_reducer)
     } else {
       alert('Please enter the category')
@@ -162,34 +161,27 @@ export default class Contact extends Component {
           ) : null}
 
           {item.category == "Friends" ? (
-            <View style={[styles.categorybtn, { backgroundColor: 'rgba(215, 38, 61, 0.12)' }]}
-            //onPress={() => this.addButton(item.recordID)}
-            >
+            <View 
+            style={[styles.categorybtn, { backgroundColor: 'rgba(215, 38, 61, 0.12)' }]}>
               <Text style={[styles.subtitle, { color: '#D7263D' }]}>{item.category}</Text>
             </View>
           ) : null}
 
           {item.category == "Work" ? (
-            <View style={[styles.categorybtn, { backgroundColor: 'rgba(249, 200, 1, 0.12)' }]}
-            // onPress={() => this.addButton(item.recordID)}
-            >
+            <View style={[styles.categorybtn, { backgroundColor: 'rgba(249, 200, 1, 0.12)' }]}>
               <Text style={[styles.subtitle, { color: '#F9C801' }]}>{item.category}</Text>
             </View>
           ) : null}
 
           {item.category == "Business" ? (
-            <View style={[styles.categorybtn, { backgroundColor: 'rgba(76, 175, 80, 0.12)' }]}
-            //onPress={() => this.addButton(item.recordID)}
-            >
+            <View style={[styles.categorybtn, { backgroundColor: 'rgba(76, 175, 80, 0.12)' }]}>
               <Text style={[styles.subtitle, { color: '#4CAF50' }]}>{item.category}</Text>
             </View>
           ) : null}
 
           {item.category !== "Business" && item.category !== "Work" && item.category !== "Friends" &&
             item.category !== "" ? (
-              <View style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}
-              // onPress={() => this.addButton(item.recordID)}
-              >
+              <View style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}>
                 <Text style={[styles.subtitle, { color: '#536CBC' }]}>{item.category}</Text>
               </View>
             ) : null}
@@ -215,7 +207,6 @@ export default class Contact extends Component {
       (a, b) =>
         a.givenName.toLowerCase() > b.givenName.toLowerCase(),
     );
-    //console.log('contactList', sortContact)
     this.array = sortContact
     this.setState({ sortContact: sortContact })
   }
@@ -223,7 +214,6 @@ export default class Contact extends Component {
   componentDidMount() {
     console.log('contact screen', this.props.contacts.ContactList_reducer.contacts.length)
     this.Sorting_func();
-
   }
 
 

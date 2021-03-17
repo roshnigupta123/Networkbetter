@@ -16,7 +16,6 @@ export const contactListSuccess = contacts => {
     return {
         type: CONTACT_LIST_SUCCESS,
         payload: contacts,
-        // mainContact: contacts,
     }
 }
 
@@ -28,7 +27,6 @@ export const contactListFailure = error => {
 }
 
 export const contactListupdate = (contacts, id) => {
-  //  console.log("action contactListupdate:")
     return {
         type: CONTACT_LIST_UPDATE,
         payload: contacts,
@@ -37,28 +35,13 @@ export const contactListupdate = (contacts, id) => {
 }
 
 export const contactListRandom = (contacts) => {
-  //  console.log("action contactListRandom:", contacts)
     return {
         type: CONTACT_LIST_AddNEW,
         payload: contacts
     }
 }
 
-// export const contactListfilter = (contacts, categorys,filterContact) => {
-//     console.log("action CONTACT_LIST_FILTER:",contacts,categorys,'filterContact',filterContact )
-//     return {
-//         type: CONTACT_LIST_FILTER,
-//         payload: {
-//             category:categorys,
-//             contacts : categorys.length == 0 ? filterContact : _.filter(contacts, function (p) {
-//                 return _.includes(categorys, p.category);}) 
-//         } 
-
-//     }
-// }
-
 export const contactListnotfilter = (contacts) => {
-  //  console.log("action contactListnotfilter:")
     return {
         type: CONTACT_LIST_NOT_FILTER,
         payload: contacts
@@ -70,8 +53,9 @@ export const contactPermission = () => {
     return (dispatch) => {
         if (Platform.OS === "android") {
             PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
-                title: "Contacts",
-                message: "This app would like to view your contacts."
+                title: "Access your contacts",
+                message: "We are requesting for Contact List access as we want to recommend user to connect with people in their contact list.",
+                buttonPositive: 'OK',
             }).then(() => {
                 dispatch(loadContacts());
             });

@@ -8,7 +8,7 @@ import styles from "./Styles";
 import Dialog, { DialogContent } from 'react-native-popup-dialog';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import call from 'react-native-phone-call';
-import * as Animatable from 'react-native-animatable';
+
 var _ = require('lodash');
 
 const image = require('../images/Group2.png');
@@ -103,27 +103,6 @@ class Home extends Component {
       )
     console.log('number: ', number,)
 
-    //  let number = ["070240 91890", "070240 91890", "90986 38200", "07024091890"]
-
-    // if (number != undefined) {
-    //   var i = 0
-    //   var str = number;
-    //   var strLength = str.length;
-    //   for (i; i < strLength; i++) {
-    //     str = str.toString().replace("-", " ").split(",")
-    //     str = str.toString().replace(/\s+/g, "").split(",")
-    //   }
-    //   let uni = str
-    //   if (uni != false) {
-    //     let u = uni.filter((v, i, a) => a.indexOf(v) === i)
-    //     this.setState({ number: u, value: u[0] });
-    //     console.log('unique', u);
-    //     this.setState({ number: u })
-    //   } else {
-    //     console.log('empty number array')
-    //   }
-    // }
-
     var result1 =  this.props.contacts.CallLog_reducer.callLogs
     var result2 = phoneNumbers
 
@@ -152,19 +131,11 @@ class Home extends Component {
 
     var Result = Math.round(christmas_day.getTime() - present_date.getTime()) / (one_day);
     var Final_Result = Result.toFixed(0)
-    //  alert(Final_Result)
-    // console.log('Final_Result', Final_Result)
-    // if (Final_Result == 0) {
-    //   this.setState({ date: newDate });
-    // } else {
-    //   this.setState({ diffInDays: Final_Result });
-    // }
-
     return Final_Result;
   }
 
   renderCard = (card) => {
-      console.log('card list', card.dateTime)
+      // console.log('card list', card.dateTime)
     if (card !== undefined || card != null) {
       return (
         <View style={{ flex: 1 }}>
@@ -246,7 +217,6 @@ class Home extends Component {
   };
 
   renderCardfilter = (card) => {
-    //  console.log('card list', card)
     if (card !== undefined || card != null) {
       return (
 
@@ -259,41 +229,32 @@ class Home extends Component {
             <View>
               {card.category == "" ? (
                 <View
-                  //onPress={() => { this.onPress_plus(card.category, card.recordID) }} 
                   style={styles.plusicon}>
                   <Image source={require('../images/plus.png')} style={styles.plus} tintColor="#A7A7A7" />
                 </View>
               ) : null}
 
               {card.category == "Friends" ? (
-                <View style={[styles.categorybtn, { backgroundColor: 'rgba(215, 38, 61, 0.12)' }]}
-                // onPress={() => this.onPress_plus(card.category, card.recordID)}
-                >
+                <View style={[styles.categorybtn, { backgroundColor: 'rgba(215, 38, 61, 0.12)' }]}>
                   <Text style={[styles.subtitle, { color: '#D7263D' }]}>{card.category}</Text>
                 </View>
               ) : null}
 
               {card.category == "Work" ? (
-                <View style={[styles.categorybtn, { backgroundColor: 'rgba(249, 200, 1, 0.12)' }]}
-                //onPress={() => this.onPress_plus(card.category, card.recordID)}
-                >
+                <View style={[styles.categorybtn, { backgroundColor: 'rgba(249, 200, 1, 0.12)' }]}>
                   <Text style={[styles.subtitle, { color: '#F9C801' }]}>{card.category}</Text>
                 </View>
               ) : null}
 
               {card.category == "Business" ? (
-                <View style={[styles.categorybtn, { backgroundColor: 'rgba(76, 175, 80, 0.12)' }]}
-                // onPress={() => this.onPress_plus(card.category, card.recordID)}
-                >
+                <View style={[styles.categorybtn, { backgroundColor: 'rgba(76, 175, 80, 0.12)' }]}>
                   <Text style={[styles.subtitle, { color: '#4CAF50' }]}>{card.category}</Text>
                 </View>
               ) : null}
 
               {card.category !== "Business" && card.category !== "Work" && card.category !== "Friends" &&
                 card.category !== "" ? (
-                  <View style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}
-                  //onPress={() => this.onPress_plus(card.category, card.recordID)}
-                  >
+                  <View style={[styles.categorybtn, { backgroundColor: 'rgba(83, 108, 188, 0.12)' }]}>
                     <Text style={[styles.subtitle, { color: '#536CBC' }]}>{card.category}</Text>
                   </View>
                 ) : null}
@@ -332,48 +293,17 @@ class Home extends Component {
     if (this.state.textInput_Holder != "") {
       this.props.categoryList(this.state.textInput_Holder)
       this.setState({ assign_category: '', textInput_Holder: '' })
-      // this.props.CategoryList_reducer.push({ name: this.state.textInput_Holder });
       console.log("arrr item", this.props.contacts.CategoryList_reducer)
     } else {
       alert('Please enter the category')
     }
   }
 
-
   UNSAFE_componentWillMount() {
     this.generateRandomContact();
   }
 
   componentDidMount() {
- //   this.getParsedDate('21-May-2020 4:47:31 pm')
-   //  console.log('this.props home', this.props.contacts.CallLog_reducer.callLogs)
-
-    //  let collLogs_array= [
-    //   {"dateTime": "Feb 19, 2021 3:58:53 PM", "duration": 2,
-    //    "name": "Sonu", "phoneNumber": "+919999999999", "rawType": 2,
-    //    "timestamp": "1613730533000", "type": "OUTGOING"}, 
-      
-    //    {"dateTime": "Feb 11, 2021 4:46:24 PM", "duration": 59, 
-    //   "name": "Monu", "phoneNumber": "+918888888888", "rawType": 2, 
-    //   "timestamp": "1613042184525", "type": "OUTGOING"}, 
-      
-    //   ]
-      
-    // let  contact_array=[
-    //   {category: "", displayName: "Sonu", givenName: "Sonu",
-    //   phoneNumbers: [+919999999999,+915555555555]},
-      
-    //   {category: "", displayName: "Monu", givenName: "Monu",
-    //   phoneNumbers: [+918888888888,+914444444444]},
-
-    //   {category: "", displayName: "Tinky", givenName: "Tinky",
-    //   phoneNumbers: [+918888888890,+914444444444]}
-    //   ]
-
-    //  var merged = _.map(contact_array, function(item) {
-    //   return _.assign(item, _.find(collLogs_array, ['name', item.displayName]));
-    // });
-    // console.log('merged',merged)
   }
 
   generateRandomContact() {
@@ -419,6 +349,7 @@ class Home extends Component {
               </View>
             </View>
 
+          
             {this.props.contacts.filter_reducer.contacts.length == 0 ?
            this.props.contacts.ContactList_reducer.contacts.length != 0 ? ( 
                 <Swiper 
@@ -462,6 +393,7 @@ class Home extends Component {
             </Text>
           </View>
         </View>
+      
         <View>
 
           <Dialog
@@ -485,7 +417,6 @@ class Home extends Component {
                 onTextChange={(text) => console.log(text)}
                 onItemSelect={item => {
                   this.setState({ selectedItems: item })
-                  // this.props.update(item.name, this.state.recordID)
                 }}
                 selectedItems={this.state.selectedItems}
                 containerStyle={{ marginTop: 20 }}

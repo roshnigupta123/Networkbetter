@@ -61,7 +61,6 @@ export default styles = StyleSheet.create({
    margin:10
   },
   button: {
-    //  width: '90%',
     height: 40,
     padding: 10,
     backgroundColor: '#4CAF50',
@@ -107,6 +106,5 @@ export default styles = StyleSheet.create({
   inputStyle:{
     color:'#000',
      fontSize:15,
-    // fontFamily: fontfamily.regular
   }
 })

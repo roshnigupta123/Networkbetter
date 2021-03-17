@@ -107,14 +107,11 @@ export default styles = StyleSheet.create({
     plus: {
         width: 15,
         height: 15,
-    //    color:'#A7A7A7'
     },
     row: {
         flexDirection: 'row',
     },
     button: {
-
-        //  width: '90%',
         height: 40,
         padding: 10,
         backgroundColor: '#4CAF50',

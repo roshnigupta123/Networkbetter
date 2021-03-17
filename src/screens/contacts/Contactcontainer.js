@@ -5,11 +5,9 @@ import Contact from './Contact';
 
 const mapStateToProps = state => ({
     contacts: state
-    //  contacts: state.contacts.ContactList_reducer.contacts
 })
 
 const mapDispatchToProps = dispatch => ({
-    //contactPermission: data => dispatch(contactPermission(data)),
     categoryList: data => dispatch(categoryList(data)),
     update: (data, id) => dispatch(contactListupdate(data, id)),
 })

@@ -10,8 +10,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   categoryList: data => dispatch(categoryList(data)),
   contactListfilter: (data, category, filterContact) => dispatch(contactListfilter(data, category, filterContact)),
-  //  contactListnotfilter: data=>dispatch(contactListnotfilter(data)),
-  // contactPermission: data=>dispatch(contactPermission(data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebarmenu)

@@ -10,7 +10,6 @@ const initialState = {
 const filter_reducer = (state = initialState, action) => {
   switch (action.type) {
     case CONTACT_LIST_FILTER: {
-    //  console.log('CONTACT_LIST_FILTER', action.payload)
       return {
         ...state,
         contacts: action.payload.contacts,
